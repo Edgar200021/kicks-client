@@ -75,7 +75,7 @@ export const HeaderLeft = ({ className }: Props) => {
 							align="start"
 						>
 							{/* TODO: */}
-							<DropdownMenuItem className="cursor-pointer">
+							<DropdownMenuItem className="cursor-pointer hover:bg-gray-200!">
 								Light
 							</DropdownMenuItem>
 							<DropdownMenuItem className="cursor-pointer">

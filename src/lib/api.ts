@@ -5,6 +5,7 @@ import {
 	type FetchBaseQueryError,
 	fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
+import { toast } from "sonner";
 import { env } from "@/config/env";
 import { TAG_TYPES } from "@/constants/redux";
 import { globalActions } from "@/store/slice";
@@ -22,6 +23,7 @@ const customBaseQuery: BaseQueryFn<
 	const result = await baseQuery(args, api, extraOptions);
 
 	if (result.error?.status === 401) {
+		toast.info("Your session has expired. Please sign in again.");
 		api.dispatch(globalActions.setUser(null));
 		return result;
 	}

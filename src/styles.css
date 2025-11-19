@@ -206,6 +206,9 @@ code {
   max-width: 1360px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 28px 20px;
   padding-top: 28px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh
 }

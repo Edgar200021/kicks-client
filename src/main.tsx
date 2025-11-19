@@ -1,5 +1,4 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
 // Import the generated route tree
@@ -7,6 +6,7 @@ import { routeTree } from "./routeTree.gen.ts";
 
 import "./styles.css";
 import { Provider } from "react-redux";
+import { Toaster } from "@/components/ui/toast/sonner.tsx";
 import { store } from "@/store/store.ts";
 import reportWebVitals from "./reportWebVitals.ts";
 
@@ -33,6 +33,7 @@ if (rootElement && !rootElement.innerHTML) {
 	root.render(
 		<Provider store={store}>
 			<RouterProvider router={router} />
+			<Toaster position="top-right" />
 		</Provider>,
 	);
 }

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as BaseRouteImport } from './routes/_base'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as BaseIndexRouteImport } from './routes/_base/index'
+import { Route as BaseAuthRouteRouteImport } from './routes/_base/auth/route'
 import { Route as BaseProfileIndexRouteImport } from './routes/_base/profile/index'
 import { Route as BaseCartIndexRouteImport } from './routes/_base/cart/index'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
@@ -31,6 +32,11 @@ const BaseIndexRoute = BaseIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BaseRoute,
 } as any)
+const BaseAuthRouteRoute = BaseAuthRouteRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => BaseRoute,
+} as any)
 const BaseProfileIndexRoute = BaseProfileIndexRouteImport.update({
   id: '/profile/',
   path: '/profile/',
@@ -47,17 +53,18 @@ const AdminAdminIndexRoute = AdminAdminIndexRouteImport.update({
   getParentRoute: () => AdminRoute,
 } as any)
 const BaseAuthSignUpRoute = BaseAuthSignUpRouteImport.update({
-  id: '/auth/sign-up',
-  path: '/auth/sign-up',
-  getParentRoute: () => BaseRoute,
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => BaseAuthRouteRoute,
 } as any)
 const BaseAuthSignInRoute = BaseAuthSignInRouteImport.update({
-  id: '/auth/sign-in',
-  path: '/auth/sign-in',
-  getParentRoute: () => BaseRoute,
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => BaseAuthRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/auth': typeof BaseAuthRouteRouteWithChildren
   '/': typeof BaseIndexRoute
   '/auth/sign-in': typeof BaseAuthSignInRoute
   '/auth/sign-up': typeof BaseAuthSignUpRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof BaseProfileIndexRoute
 }
 export interface FileRoutesByTo {
+  '/auth': typeof BaseAuthRouteRouteWithChildren
   '/': typeof BaseIndexRoute
   '/auth/sign-in': typeof BaseAuthSignInRoute
   '/auth/sign-up': typeof BaseAuthSignUpRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_admin': typeof AdminRouteWithChildren
   '/_base': typeof BaseRouteWithChildren
+  '/_base/auth': typeof BaseAuthRouteRouteWithChildren
   '/_base/': typeof BaseIndexRoute
   '/_base/auth/sign-in': typeof BaseAuthSignInRoute
   '/_base/auth/sign-up': typeof BaseAuthSignUpRoute
@@ -87,6 +96,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/auth'
     | '/'
     | '/auth/sign-in'
     | '/auth/sign-up'
@@ -94,11 +104,19 @@ export interface FileRouteTypes {
     | '/cart'
     | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/sign-in' | '/auth/sign-up' | '/admin' | '/cart' | '/profile'
+  to:
+    | '/auth'
+    | '/'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/admin'
+    | '/cart'
+    | '/profile'
   id:
     | '__root__'
     | '/_admin'
     | '/_base'
+    | '/_base/auth'
     | '/_base/'
     | '/_base/auth/sign-in'
     | '/_base/auth/sign-up'
@@ -135,6 +153,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseIndexRouteImport
       parentRoute: typeof BaseRoute
     }
+    '/_base/auth': {
+      id: '/_base/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof BaseAuthRouteRouteImport
+      parentRoute: typeof BaseRoute
+    }
     '/_base/profile/': {
       id: '/_base/profile/'
       path: '/profile'
@@ -158,17 +183,17 @@ declare module '@tanstack/react-router' {
     }
     '/_base/auth/sign-up': {
       id: '/_base/auth/sign-up'
-      path: '/auth/sign-up'
+      path: '/sign-up'
       fullPath: '/auth/sign-up'
       preLoaderRoute: typeof BaseAuthSignUpRouteImport
-      parentRoute: typeof BaseRoute
+      parentRoute: typeof BaseAuthRouteRoute
     }
     '/_base/auth/sign-in': {
       id: '/_base/auth/sign-in'
-      path: '/auth/sign-in'
+      path: '/sign-in'
       fullPath: '/auth/sign-in'
       preLoaderRoute: typeof BaseAuthSignInRouteImport
-      parentRoute: typeof BaseRoute
+      parentRoute: typeof BaseAuthRouteRoute
     }
   }
 }
@@ -183,18 +208,30 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface BaseRouteChildren {
-  BaseIndexRoute: typeof BaseIndexRoute
+interface BaseAuthRouteRouteChildren {
   BaseAuthSignInRoute: typeof BaseAuthSignInRoute
   BaseAuthSignUpRoute: typeof BaseAuthSignUpRoute
+}
+
+const BaseAuthRouteRouteChildren: BaseAuthRouteRouteChildren = {
+  BaseAuthSignInRoute: BaseAuthSignInRoute,
+  BaseAuthSignUpRoute: BaseAuthSignUpRoute,
+}
+
+const BaseAuthRouteRouteWithChildren = BaseAuthRouteRoute._addFileChildren(
+  BaseAuthRouteRouteChildren,
+)
+
+interface BaseRouteChildren {
+  BaseAuthRouteRoute: typeof BaseAuthRouteRouteWithChildren
+  BaseIndexRoute: typeof BaseIndexRoute
   BaseCartIndexRoute: typeof BaseCartIndexRoute
   BaseProfileIndexRoute: typeof BaseProfileIndexRoute
 }
 
 const BaseRouteChildren: BaseRouteChildren = {
+  BaseAuthRouteRoute: BaseAuthRouteRouteWithChildren,
   BaseIndexRoute: BaseIndexRoute,
-  BaseAuthSignInRoute: BaseAuthSignInRoute,
-  BaseAuthSignUpRoute: BaseAuthSignUpRoute,
   BaseCartIndexRoute: BaseCartIndexRoute,
   BaseProfileIndexRoute: BaseProfileIndexRoute,
 }
