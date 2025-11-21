@@ -6,49 +6,49 @@
 
 @font-face {
   font-family: 'Rubik';
-  src: url('../src/assets/fonts/Rubik-Medium.woff2');
+  src: url('../src/common/assets/fonts/Rubik-Medium.woff2');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Rubik';
-  src: url('../src/assets/fonts/Rubik-SemiBold.woff2');
+  src: url('../src/common/assets/fonts/Rubik-SemiBold.woff2');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Rubik';
-  src: url('../src/assets/fonts/Rubik-Bold.woff2');
+  src: url('../src/common/assets/fonts/Rubik-Bold.woff2');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Open-Sans';
-  src: url('../src/assets/fonts/OpenSans-Regular.woff2');
+  src: url('../src/common/assets/fonts/OpenSans-Regular.woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Open-Sans';
-  src: url('../src/assets/fonts/OpenSans-SemiBold.woff2');
+  src: url('../src/common/assets/fonts/OpenSans-SemiBold.woff2');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('../src/assets/fonts/Inter-Regular.woff2');
+  src: url('../src/common/assets/fonts/Inter-Regular.woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('../src/assets/fonts/Inter-Medium.woff2');
+  src: url('../src/common/assets/fonts/Inter-Medium.woff2');
   font-weight: 500;
   font-style: normal;
 }
@@ -206,9 +206,8 @@ code {
   max-width: 1360px;
   width: 100%;
   margin: 0 auto;
-  padding: 28px 20px;
-  padding-top: 28px;
-  display: grid;
+	padding: 28px 20px;
+	display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh
 }

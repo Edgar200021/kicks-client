@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as BaseRouteImport } from './routes/_base'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as BaseIndexRouteImport } from './routes/_base/index'
-import { Route as BaseAuthRouteRouteImport } from './routes/_base/auth/route'
 import { Route as BaseProfileIndexRouteImport } from './routes/_base/profile/index'
 import { Route as BaseCartIndexRouteImport } from './routes/_base/cart/index'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
-import { Route as BaseAuthSignUpRouteImport } from './routes/_base/auth/sign-up'
-import { Route as BaseAuthSignInRouteImport } from './routes/_base/auth/sign-in'
+import { Route as BaseAuthResetPasswordRouteImport } from './routes/_base/auth/reset-password'
+import { Route as BaseAuthForgotPasswordRouteImport } from './routes/_base/auth/forgot-password'
+import { Route as BaseAuthAccountVerificationRouteImport } from './routes/_base/auth/account-verification'
+import { Route as BaseAuthsignupSigninRouteRouteImport } from './routes/_base/auth/(signup-signin)/route'
+import { Route as BaseAuthsignupSigninSignUpRouteImport } from './routes/_base/auth/(signup-signin)/sign-up'
+import { Route as BaseAuthsignupSigninSignInRouteImport } from './routes/_base/auth/(signup-signin)/sign-in'
 
 const BaseRoute = BaseRouteImport.update({
   id: '/_base',
@@ -30,11 +33,6 @@ const AdminRoute = AdminRouteImport.update({
 const BaseIndexRoute = BaseIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => BaseRoute,
-} as any)
-const BaseAuthRouteRoute = BaseAuthRouteRouteImport.update({
-  id: '/auth',
-  path: '/auth',
   getParentRoute: () => BaseRoute,
 } as any)
 const BaseProfileIndexRoute = BaseProfileIndexRouteImport.update({
@@ -52,77 +50,119 @@ const AdminAdminIndexRoute = AdminAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AdminRoute,
 } as any)
-const BaseAuthSignUpRoute = BaseAuthSignUpRouteImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => BaseAuthRouteRoute,
+const BaseAuthResetPasswordRoute = BaseAuthResetPasswordRouteImport.update({
+  id: '/auth/reset-password',
+  path: '/auth/reset-password',
+  getParentRoute: () => BaseRoute,
 } as any)
-const BaseAuthSignInRoute = BaseAuthSignInRouteImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => BaseAuthRouteRoute,
+const BaseAuthForgotPasswordRoute = BaseAuthForgotPasswordRouteImport.update({
+  id: '/auth/forgot-password',
+  path: '/auth/forgot-password',
+  getParentRoute: () => BaseRoute,
 } as any)
+const BaseAuthAccountVerificationRoute =
+  BaseAuthAccountVerificationRouteImport.update({
+    id: '/auth/account-verification',
+    path: '/auth/account-verification',
+    getParentRoute: () => BaseRoute,
+  } as any)
+const BaseAuthsignupSigninRouteRoute =
+  BaseAuthsignupSigninRouteRouteImport.update({
+    id: '/auth/(signup-signin)',
+    path: '/auth',
+    getParentRoute: () => BaseRoute,
+  } as any)
+const BaseAuthsignupSigninSignUpRoute =
+  BaseAuthsignupSigninSignUpRouteImport.update({
+    id: '/sign-up',
+    path: '/sign-up',
+    getParentRoute: () => BaseAuthsignupSigninRouteRoute,
+  } as any)
+const BaseAuthsignupSigninSignInRoute =
+  BaseAuthsignupSigninSignInRouteImport.update({
+    id: '/sign-in',
+    path: '/sign-in',
+    getParentRoute: () => BaseAuthsignupSigninRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/auth': typeof BaseAuthRouteRouteWithChildren
   '/': typeof BaseIndexRoute
-  '/auth/sign-in': typeof BaseAuthSignInRoute
-  '/auth/sign-up': typeof BaseAuthSignUpRoute
+  '/auth': typeof BaseAuthsignupSigninRouteRouteWithChildren
+  '/auth/account-verification': typeof BaseAuthAccountVerificationRoute
+  '/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
+  '/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/admin': typeof AdminAdminIndexRoute
   '/cart': typeof BaseCartIndexRoute
   '/profile': typeof BaseProfileIndexRoute
+  '/auth/sign-in': typeof BaseAuthsignupSigninSignInRoute
+  '/auth/sign-up': typeof BaseAuthsignupSigninSignUpRoute
 }
 export interface FileRoutesByTo {
-  '/auth': typeof BaseAuthRouteRouteWithChildren
   '/': typeof BaseIndexRoute
-  '/auth/sign-in': typeof BaseAuthSignInRoute
-  '/auth/sign-up': typeof BaseAuthSignUpRoute
+  '/auth': typeof BaseAuthsignupSigninRouteRouteWithChildren
+  '/auth/account-verification': typeof BaseAuthAccountVerificationRoute
+  '/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
+  '/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/admin': typeof AdminAdminIndexRoute
   '/cart': typeof BaseCartIndexRoute
   '/profile': typeof BaseProfileIndexRoute
+  '/auth/sign-in': typeof BaseAuthsignupSigninSignInRoute
+  '/auth/sign-up': typeof BaseAuthsignupSigninSignUpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_admin': typeof AdminRouteWithChildren
   '/_base': typeof BaseRouteWithChildren
-  '/_base/auth': typeof BaseAuthRouteRouteWithChildren
   '/_base/': typeof BaseIndexRoute
-  '/_base/auth/sign-in': typeof BaseAuthSignInRoute
-  '/_base/auth/sign-up': typeof BaseAuthSignUpRoute
+  '/_base/auth/(signup-signin)': typeof BaseAuthsignupSigninRouteRouteWithChildren
+  '/_base/auth/account-verification': typeof BaseAuthAccountVerificationRoute
+  '/_base/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
+  '/_base/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_base/cart/': typeof BaseCartIndexRoute
   '/_base/profile/': typeof BaseProfileIndexRoute
+  '/_base/auth/(signup-signin)/sign-in': typeof BaseAuthsignupSigninSignInRoute
+  '/_base/auth/(signup-signin)/sign-up': typeof BaseAuthsignupSigninSignUpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/auth'
     | '/'
-    | '/auth/sign-in'
-    | '/auth/sign-up'
+    | '/auth'
+    | '/auth/account-verification'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/admin'
     | '/cart'
     | '/profile'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/auth'
     | '/'
-    | '/auth/sign-in'
-    | '/auth/sign-up'
+    | '/auth'
+    | '/auth/account-verification'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/admin'
     | '/cart'
     | '/profile'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
   id:
     | '__root__'
     | '/_admin'
     | '/_base'
-    | '/_base/auth'
     | '/_base/'
-    | '/_base/auth/sign-in'
-    | '/_base/auth/sign-up'
+    | '/_base/auth/(signup-signin)'
+    | '/_base/auth/account-verification'
+    | '/_base/auth/forgot-password'
+    | '/_base/auth/reset-password'
     | '/_admin/admin/'
     | '/_base/cart/'
     | '/_base/profile/'
+    | '/_base/auth/(signup-signin)/sign-in'
+    | '/_base/auth/(signup-signin)/sign-up'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -153,13 +193,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseIndexRouteImport
       parentRoute: typeof BaseRoute
     }
-    '/_base/auth': {
-      id: '/_base/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof BaseAuthRouteRouteImport
-      parentRoute: typeof BaseRoute
-    }
     '/_base/profile/': {
       id: '/_base/profile/'
       path: '/profile'
@@ -181,19 +214,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/_base/auth/sign-up': {
-      id: '/_base/auth/sign-up'
+    '/_base/auth/reset-password': {
+      id: '/_base/auth/reset-password'
+      path: '/auth/reset-password'
+      fullPath: '/auth/reset-password'
+      preLoaderRoute: typeof BaseAuthResetPasswordRouteImport
+      parentRoute: typeof BaseRoute
+    }
+    '/_base/auth/forgot-password': {
+      id: '/_base/auth/forgot-password'
+      path: '/auth/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof BaseAuthForgotPasswordRouteImport
+      parentRoute: typeof BaseRoute
+    }
+    '/_base/auth/account-verification': {
+      id: '/_base/auth/account-verification'
+      path: '/auth/account-verification'
+      fullPath: '/auth/account-verification'
+      preLoaderRoute: typeof BaseAuthAccountVerificationRouteImport
+      parentRoute: typeof BaseRoute
+    }
+    '/_base/auth/(signup-signin)': {
+      id: '/_base/auth/(signup-signin)'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof BaseAuthsignupSigninRouteRouteImport
+      parentRoute: typeof BaseRoute
+    }
+    '/_base/auth/(signup-signin)/sign-up': {
+      id: '/_base/auth/(signup-signin)/sign-up'
       path: '/sign-up'
       fullPath: '/auth/sign-up'
-      preLoaderRoute: typeof BaseAuthSignUpRouteImport
-      parentRoute: typeof BaseAuthRouteRoute
+      preLoaderRoute: typeof BaseAuthsignupSigninSignUpRouteImport
+      parentRoute: typeof BaseAuthsignupSigninRouteRoute
     }
-    '/_base/auth/sign-in': {
-      id: '/_base/auth/sign-in'
+    '/_base/auth/(signup-signin)/sign-in': {
+      id: '/_base/auth/(signup-signin)/sign-in'
       path: '/sign-in'
       fullPath: '/auth/sign-in'
-      preLoaderRoute: typeof BaseAuthSignInRouteImport
-      parentRoute: typeof BaseAuthRouteRoute
+      preLoaderRoute: typeof BaseAuthsignupSigninSignInRouteImport
+      parentRoute: typeof BaseAuthsignupSigninRouteRoute
     }
   }
 }
@@ -208,30 +269,38 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface BaseAuthRouteRouteChildren {
-  BaseAuthSignInRoute: typeof BaseAuthSignInRoute
-  BaseAuthSignUpRoute: typeof BaseAuthSignUpRoute
+interface BaseAuthsignupSigninRouteRouteChildren {
+  BaseAuthsignupSigninSignInRoute: typeof BaseAuthsignupSigninSignInRoute
+  BaseAuthsignupSigninSignUpRoute: typeof BaseAuthsignupSigninSignUpRoute
 }
 
-const BaseAuthRouteRouteChildren: BaseAuthRouteRouteChildren = {
-  BaseAuthSignInRoute: BaseAuthSignInRoute,
-  BaseAuthSignUpRoute: BaseAuthSignUpRoute,
-}
+const BaseAuthsignupSigninRouteRouteChildren: BaseAuthsignupSigninRouteRouteChildren =
+  {
+    BaseAuthsignupSigninSignInRoute: BaseAuthsignupSigninSignInRoute,
+    BaseAuthsignupSigninSignUpRoute: BaseAuthsignupSigninSignUpRoute,
+  }
 
-const BaseAuthRouteRouteWithChildren = BaseAuthRouteRoute._addFileChildren(
-  BaseAuthRouteRouteChildren,
-)
+const BaseAuthsignupSigninRouteRouteWithChildren =
+  BaseAuthsignupSigninRouteRoute._addFileChildren(
+    BaseAuthsignupSigninRouteRouteChildren,
+  )
 
 interface BaseRouteChildren {
-  BaseAuthRouteRoute: typeof BaseAuthRouteRouteWithChildren
   BaseIndexRoute: typeof BaseIndexRoute
+  BaseAuthsignupSigninRouteRoute: typeof BaseAuthsignupSigninRouteRouteWithChildren
+  BaseAuthAccountVerificationRoute: typeof BaseAuthAccountVerificationRoute
+  BaseAuthForgotPasswordRoute: typeof BaseAuthForgotPasswordRoute
+  BaseAuthResetPasswordRoute: typeof BaseAuthResetPasswordRoute
   BaseCartIndexRoute: typeof BaseCartIndexRoute
   BaseProfileIndexRoute: typeof BaseProfileIndexRoute
 }
 
 const BaseRouteChildren: BaseRouteChildren = {
-  BaseAuthRouteRoute: BaseAuthRouteRouteWithChildren,
   BaseIndexRoute: BaseIndexRoute,
+  BaseAuthsignupSigninRouteRoute: BaseAuthsignupSigninRouteRouteWithChildren,
+  BaseAuthAccountVerificationRoute: BaseAuthAccountVerificationRoute,
+  BaseAuthForgotPasswordRoute: BaseAuthForgotPasswordRoute,
+  BaseAuthResetPasswordRoute: BaseAuthResetPasswordRoute,
   BaseCartIndexRoute: BaseCartIndexRoute,
   BaseProfileIndexRoute: BaseProfileIndexRoute,
 }

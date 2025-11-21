@@ -6,8 +6,8 @@ import { routeTree } from "./routeTree.gen.ts";
 
 import "./styles.css";
 import { Provider } from "react-redux";
-import { Toaster } from "@/components/ui/toast/sonner.tsx";
-import { store } from "@/store/store.ts";
+import { Toaster } from "@/common/components/ui/toast/sonner.tsx";
+import { store } from "@/common/store/store.ts";
 import reportWebVitals from "./reportWebVitals.ts";
 
 const router = createRouter({

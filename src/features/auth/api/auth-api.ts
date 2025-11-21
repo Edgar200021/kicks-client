@@ -1,4 +1,10 @@
+import { api } from "@/common/lib/api";
+import { globalActions } from "@/common/store/slice";
 import type {
+	ForgotPasswordRequest,
+	ForgotPasswordResponse,
+	ResetPasswordRequest,
+	ResetPasswordResponse,
 	SignInRequest,
 	SignInResponse,
 	SignUpRequest,
@@ -6,8 +12,6 @@ import type {
 	VerifyAccountRequest,
 	VerifyAccountResponse,
 } from "@/features/auth/types/api";
-import { api } from "@/lib/api";
-import { globalActions } from "@/store/slice";
 
 export const authApi = api.injectEndpoints({
 	endpoints: (builder) => ({
@@ -18,6 +22,7 @@ export const authApi = api.injectEndpoints({
 				body,
 			}),
 		}),
+
 		signIn: builder.mutation<SignInResponse, SignInRequest>({
 			query: (body) => ({
 				url: "/auth/sign-in",
@@ -29,6 +34,7 @@ export const authApi = api.injectEndpoints({
 				dispatch(globalActions.setUser(data.data));
 			},
 		}),
+
 		accountVerification: builder.mutation<
 			VerifyAccountResponse,
 			VerifyAccountRequest
@@ -40,31 +46,28 @@ export const authApi = api.injectEndpoints({
 			}),
 		}),
 
-		// googleSignIn: builder.query<GoogleSignInResponse, GoogleSignInRequest>({
-		// 	query: () => ({
-		// 		url: "/auth/google",
-		// 	}),
-		// }),
-		// forgotPassword: builder.mutation<
-		// 	ForgotPasswordResponse,
-		// 	ForgotPasswordRequest
-		// >({
-		// 	query: (body) => ({
-		// 		url: "/auth/forgot-password",
-		// 		method: "POST",
-		// 		body,
-		// 	}),
-		// }),
-		// resetPassword: builder.mutation<
-		// 	ResetPasswordResponse,
-		// 	ResetPasswordRequest
-		// >({
-		// 	query: (body) => ({
-		// 		url: "/auth/reset-password",
-		// 		method: "PATCH",
-		// 		body,
-		// 	}),
-		// }),
+		forgotPassword: builder.mutation<
+			ForgotPasswordResponse,
+			ForgotPasswordRequest
+		>({
+			query: (body) => ({
+				url: "/auth/forgot-password",
+				method: "POST",
+				body,
+			}),
+		}),
+
+		resetPassword: builder.mutation<
+			ResetPasswordResponse,
+			ResetPasswordRequest
+		>({
+			query: (body) => ({
+				url: "/auth/reset-password",
+				method: "POST",
+				body,
+			}),
+		}),
+
 		// logout: builder.mutation<LogoutResponse, LogoutRequest>({
 		// 	query: () => ({
 		// 		url: "/auth/logout",
@@ -82,4 +85,6 @@ export const {
 	useSignUpMutation,
 	useSignInMutation,
 	useAccountVerificationMutation,
+	useForgotPasswordMutation,
+	useResetPasswordMutation,
 } = authApi;

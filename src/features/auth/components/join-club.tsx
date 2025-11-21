@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button/button";
-import { cn } from "@/utils/cn";
+import { Button } from "@/common/components/ui/button/button";
+import { cn } from "@/common/utils/cn";
 
 interface Props {
 	className?: string;

@@ -5,8 +5,17 @@ export const paths = {
 		root: "/admin",
 	},
 	auth: {
-		signIn: "/auth/sign-in",
-		signUp: "/auth/sign-up",
+		signIn: {
+			path: "/auth/(signup-signin)/sign-in",
+			href: "/auth/sign-in",
+		},
+		signUp: {
+			path: "/auth/(signup-signin)/sign-up",
+			href: "/auth/sign-up",
+		},
+		accountVerification: "/auth/account-verification",
+		forgotPassword: "/auth/forgot-password",
+		resetPassword: "/auth/reset-password",
 	},
 	cart: "/cart",
 } as const;

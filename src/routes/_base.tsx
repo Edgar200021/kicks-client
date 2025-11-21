@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BaseLayout } from "@/components/layouts/base-layout/base-layout";
+import { BaseLayout } from "@/common/components/layouts/base-layout/base-layout";
 
 export const Route = createFileRoute("/_base")({
 	component: RouteComponent,
