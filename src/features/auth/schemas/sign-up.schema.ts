@@ -1,4 +1,5 @@
 import z from "zod";
+import { UserGender } from "@/common/types/api";
 import {
 	FIRST_NAME_MAX_LENGTH,
 	FIRST_NAME_MIN_LENGTH,
@@ -6,7 +7,6 @@ import {
 	LAST_NAME_MIN_LENGTH,
 } from "@/features/auth/const/schema";
 import { passwordSchema } from "@/features/auth/schemas/password.schema";
-import { UserGender } from "@/common/types/api";
 
 export const signUpInputSchema = z.object({
 	email: z.email().nonempty(),

@@ -13,8 +13,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/common/components/ui/dropdown-menu/dropdown-menu";
 import { AppLink } from "@/common/components/ui/link/link";
-import { paths } from "@/config/paths";
 import { cn } from "@/common/utils/cn";
+import { paths } from "@/config/paths";
 
 interface Props {
 	className?: string;

@@ -19,3 +19,9 @@ export type ForgotPasswordResponse = ApiSuccessResponse<string>;
 
 export type ResetPasswordRequest = ResetPasswordInput;
 export type ResetPasswordResponse = ApiSuccessResponse<string>;
+
+export type LogoutRequest = null;
+export type LogoutResponse = ApiSuccessResponse<null>;
+
+export type GetMeRequest = null;
+export type GetMeResponse = ApiSuccessResponse<User>;

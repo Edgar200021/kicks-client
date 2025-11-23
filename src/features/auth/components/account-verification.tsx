@@ -38,7 +38,7 @@ export const AccountVerification = ({ className, token }: Props) => {
 				if (sec === null) return null;
 
 				if (sec === 0) {
-					navigate({ to: paths.auth.signIn.href });
+					navigate({ to: paths.auth.signIn });
 				}
 
 				return sec - 1;

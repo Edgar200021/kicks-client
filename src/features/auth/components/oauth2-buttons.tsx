@@ -1,7 +1,7 @@
 import { Button } from "@/common/components/ui/button/button";
+import { cn } from "@/common/utils/cn";
 import { env } from "@/config/env";
 import { OAUth2Provider } from "@/features/auth/types/oauth2";
-import { cn } from "@/common/utils/cn";
 import facebookIcon from "../assets/facebook.svg";
 import googleIcon from "../assets/google.svg";
 

@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { paths } from "@/config/paths";
 
-export const Route = createFileRoute(`/_base${paths.cart}/`)({
+export const Route = createFileRoute(`/_admin${paths.admin.orders}`)({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	return <div>Hello "/_base/cart/"!</div>;
+	return <div>Hello "/_admin/admin/orders"!</div>;
 }

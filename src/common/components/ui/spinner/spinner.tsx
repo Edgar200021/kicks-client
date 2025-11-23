@@ -5,7 +5,7 @@ const sizes = {
 	sm: "w-6 h-6",
 	md: "w-10 h-10",
 	lg: "w-16 h-16",
-	xl: "w-24 h-24",
+	xl: "w-32 h-32",
 };
 
 const variants = {

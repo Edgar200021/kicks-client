@@ -207,6 +207,7 @@ code {
   width: 100%;
   margin: 0 auto;
 	padding: 28px 20px;
+  padding-bottom: 0px;
 	display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh

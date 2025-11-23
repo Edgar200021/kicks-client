@@ -1,8 +1,13 @@
 import { api } from "@/common/lib/api";
 import { globalActions } from "@/common/store/slice";
+import { endpoints } from "@/config/endpoints";
 import type {
 	ForgotPasswordRequest,
 	ForgotPasswordResponse,
+	GetMeRequest,
+	GetMeResponse,
+	LogoutRequest,
+	LogoutResponse,
 	ResetPasswordRequest,
 	ResetPasswordResponse,
 	SignInRequest,
@@ -17,7 +22,7 @@ export const authApi = api.injectEndpoints({
 	endpoints: (builder) => ({
 		signUp: builder.mutation<SignUpResponse, SignUpRequest>({
 			query: (body) => ({
-				url: "/auth/sign-up",
+				url: endpoints.auth.signUp,
 				method: "POST",
 				body,
 			}),
@@ -25,7 +30,7 @@ export const authApi = api.injectEndpoints({
 
 		signIn: builder.mutation<SignInResponse, SignInRequest>({
 			query: (body) => ({
-				url: "/auth/sign-in",
+				url: endpoints.auth.signIn,
 				method: "POST",
 				body,
 			}),
@@ -40,7 +45,7 @@ export const authApi = api.injectEndpoints({
 			VerifyAccountRequest
 		>({
 			query: (body) => ({
-				url: "/auth/verify-account",
+				url: endpoints.auth.verifyAccount,
 				method: "POST",
 				body,
 			}),
@@ -51,7 +56,7 @@ export const authApi = api.injectEndpoints({
 			ForgotPasswordRequest
 		>({
 			query: (body) => ({
-				url: "/auth/forgot-password",
+				url: endpoints.auth.forgotPassword,
 				method: "POST",
 				body,
 			}),
@@ -62,22 +67,32 @@ export const authApi = api.injectEndpoints({
 			ResetPasswordRequest
 		>({
 			query: (body) => ({
-				url: "/auth/reset-password",
+				url: endpoints.auth.resetPassword,
 				method: "POST",
 				body,
 			}),
 		}),
 
-		// logout: builder.mutation<LogoutResponse, LogoutRequest>({
-		// 	query: () => ({
-		// 		url: "/auth/logout",
-		// 		method: "POST",
-		// 	}),
-		// 	onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-		// 		await queryFulfilled;
-		// 		dispatch(authActions.setUser(null));
-		// 	},
-		// }),
+		logout: builder.mutation<LogoutResponse, LogoutRequest>({
+			query: () => ({
+				url: endpoints.auth.logout,
+				method: "POST",
+			}),
+			onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+				await queryFulfilled;
+				dispatch(globalActions.setUser(null));
+			},
+		}),
+
+		getMe: builder.query<GetMeResponse, GetMeRequest>({
+			query: () => ({
+				url: endpoints.auth.getMe,
+			}),
+			onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+				const { data } = await queryFulfilled;
+				dispatch(globalActions.setUser(data.data));
+			},
+		}),
 	}),
 });
 
@@ -87,4 +102,6 @@ export const {
 	useAccountVerificationMutation,
 	useForgotPasswordMutation,
 	useResetPasswordMutation,
+	useLogoutMutation,
+	useGetMeQuery,
 } = authApi;

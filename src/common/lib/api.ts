@@ -8,6 +8,7 @@ import {
 import { toast } from "sonner";
 import { TAG_TYPES } from "@/common/constants/redux";
 import { globalActions } from "@/common/store/slice";
+import { endpoints } from "@/config/endpoints";
 import { env } from "@/config/env";
 
 const baseQuery = fetchBaseQuery({
@@ -22,8 +23,12 @@ const customBaseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
 	const result = await baseQuery(args, api, extraOptions);
 
+	const fetchArgs = args as FetchArgs;
+
 	if (result.error?.status === 401) {
-		toast.info("Your session has expired. Please sign in again.");
+		if (fetchArgs && fetchArgs.url !== endpoints.auth.getMe) {
+			toast.info("Your session has expired. Please sign in again.");
+		}
 		api.dispatch(globalActions.setUser(null));
 	}
 

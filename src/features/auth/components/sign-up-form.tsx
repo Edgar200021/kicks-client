@@ -24,10 +24,9 @@ import {
 
 interface Props {
 	className?: string;
-	redirectPath?: string;
 }
 
-export const SignUpForm = ({ className, redirectPath }: Props) => {
+export const SignUpForm = ({ className }: Props) => {
 	const {
 		handleSubmit,
 		control,
@@ -54,7 +53,7 @@ export const SignUpForm = ({ className, redirectPath }: Props) => {
 			<h1 className="font-semibold text-2xl mb-3 md:text-4xl">Register</h1>
 			<div className="flex flex-col gap-y-5 md:gap-y-6">
 				<span className="font-semibold md:text-xl">Sign up with</span>
-				<OAuth2Buttons redirectPath={redirectPath} />
+				<OAuth2Buttons />
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<fieldset
 						disabled={isLoading}
@@ -158,7 +157,7 @@ export const SignUpForm = ({ className, redirectPath }: Props) => {
 								Already have an account?
 							</span>
 							<AppLink
-								to={paths.auth.signIn.href}
+								to={paths.auth.signIn}
 								className="font-semibold underline md:text-base text-primary"
 							>
 								Log in

@@ -1,8 +1,18 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { BaseLayout } from "@/common/components/layouts/base-layout/base-layout";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { BaseLayout } from "@/common/components/layouts/base-layout";
+import { UserRole } from "@/common/types/api";
+import { paths } from "@/config/paths";
 
 export const Route = createFileRoute("/_base")({
 	component: RouteComponent,
+	beforeLoad: (ctx) => {
+		console.log(ctx.context.user);
+		if (ctx.context.user && ctx.context.user.role === UserRole.Admin) {
+			throw redirect({
+				to: paths.admin.root,
+			});
+		}
+	},
 });
 
 function RouteComponent() {

@@ -7,6 +7,7 @@ import { FormInput } from "@/common/components/ui/form/form-input";
 import { AppLink } from "@/common/components/ui/link/link";
 import { Spinner } from "@/common/components/ui/spinner/spinner";
 import { useHandleError } from "@/common/hooks/use-handler-error";
+import type { User } from "@/common/types/api";
 import { cn } from "@/common/utils/cn";
 import { paths } from "@/config/paths";
 import { useSignInMutation } from "@/features/auth/api/auth-api";
@@ -19,9 +20,10 @@ import {
 interface Props {
 	className?: string;
 	redirectPath?: string;
+	onSuccess?: (user: User) => void;
 }
 
-export const SignInForm = ({ className, redirectPath }: Props) => {
+export const SignInForm = ({ className, redirectPath, onSuccess }: Props) => {
 	const { handleSubmit, control } = useForm({
 		resolver: zodResolver(signInInputSchema),
 		defaultValues: {
@@ -34,7 +36,8 @@ export const SignInForm = ({ className, redirectPath }: Props) => {
 	const { apiValidationErrors } = useHandleError<(keyof SignInInput)[]>(error);
 
 	const onSubmit = async (data: SignInInput) => {
-		await signIn(data).unwrap();
+		const { data: user } = await signIn(data).unwrap();
+		onSuccess?.(user);
 	};
 
 	return (
@@ -92,7 +95,7 @@ export const SignInForm = ({ className, redirectPath }: Props) => {
 					<span className="text-sm md:text-base">Don't have an account?</span>
 					<AppLink
 						disabled={isLoading}
-						to={paths.auth.signUp.href}
+						to={paths.auth.signUp}
 						className="font-semibold underline md:text-base text-primary"
 					>
 						Register

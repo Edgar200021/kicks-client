@@ -15,6 +15,10 @@ export type ApiValidationErrorResponse<T extends string[]> = {
 	errors: Partial<Record<T[number], string>>;
 };
 
+export type WithPageCountResponse<K extends string, T> = {
+	pageCount: number;
+} & Record<K, T>;
+
 export enum UserGender {
 	Male = "male",
 	Female = "female",
@@ -32,4 +36,14 @@ export type User = {
 	lastName: Nullable<string>;
 	role: UserRole;
 	gender: Nullable<UserGender>;
+};
+
+export type AdminUser = User & {
+	id: string;
+	isVerified: boolean;
+	isBanned: boolean;
+	createdAt: string;
+	updatedAt: string;
+	googleId: Nullable<string>;
+	facebookId: Nullable<string>;
 };

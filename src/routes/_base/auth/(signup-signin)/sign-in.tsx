@@ -1,12 +1,32 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { paths } from "@/config/paths";
+import {
+	createFileRoute,
+	useNavigate,
+	useRouter,
+} from "@tanstack/react-router";
 import { SignInForm } from "@/features/auth/components/sign-in-form";
+import { redirectPathSearchSchema } from "@/features/auth/schemas/redirect-path-search.schema";
 
-export const Route = createFileRoute(`/_base${paths.auth.signIn.path}`)({
+export const Route = createFileRoute("/_base/auth/(signup-signin)/sign-in")({
 	component: RouteComponent,
+	validateSearch: redirectPathSearchSchema,
 });
 
 function RouteComponent() {
 	const { redirectPath } = Route.useSearch();
-	return <SignInForm redirectPath={redirectPath} />;
+
+	const router = useRouter();
+	const navigate = useNavigate();
+
+	return (
+		<SignInForm
+			redirectPath={redirectPath}
+			onSuccess={() => {
+				if (redirectPath) {
+					return navigate({ to: redirectPath });
+				}
+
+				router.invalidate();
+			}}
+		/>
+	);
 }
