@@ -1,3 +1,5 @@
+import type { UUID } from "@/common/types/common";
+
 export const endpoints = {
 	auth: {
 		signUp: "/auth/sign-up",
@@ -10,7 +12,21 @@ export const endpoints = {
 	},
 	admin: {
 		users: {
-			getAll: "admin/user",
+			getAll: "/admin/user",
+			remove: (id: UUID) => `/admin/user/${id}`,
+			blockToggle: (id: UUID) => `/admin/user/${id}/block-toggle`,
+		},
+		categories: {
+			getAll: "/admin/category",
+			create: "/admin/category",
+			remove: (id: UUID) => `/admin/category/${id}`,
+			update: (id: UUID) => `/admin/category/${id}`,
+		},
+		brands: {
+			getAll: "/admin/brand",
+			create: "/admin/brand",
+			remove: (id: UUID) => `/admin/brand/${id}`,
+			update: (id: UUID) => `/admin/brand/${id}`,
 		},
 	},
 } as const;

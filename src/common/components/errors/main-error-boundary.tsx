@@ -9,7 +9,7 @@ export default function MainErrorBoundary({
 	reset,
 }: ErrorComponentProps) {
 	useEffect(() => {
-		// TODO:
+		// TODO
 		console.log(error, info);
 	}, [error, info]);
 

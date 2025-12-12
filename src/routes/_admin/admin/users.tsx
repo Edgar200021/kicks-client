@@ -1,21 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumb } from "@/common/components/ui/breadcrumb";
 import { paths } from "@/config/paths";
-import { UsersTable } from "@/features/admin/user/components/users-table";
-import { UsersFiltersProvider } from "@/features/admin/user/context/users-filters.context";
+import { UsersFilters } from "@/features/admin/user/components/users-filters";
+import { UsersWrapper } from "@/features/admin/user/components/users-wrapper";
+import { getAllUsersInputSchema } from "@/features/admin/user/schemas/get-all-users.schema";
 
 export const Route = createFileRoute(`/_admin${paths.admin.users}`)({
 	component: RouteComponent,
+	validateSearch: getAllUsersInputSchema,
 });
 
 function RouteComponent() {
+	const search = Route.useSearch();
+
 	return (
-		<UsersFiltersProvider>
+		<>
 			<div className="flex flex-col gap-y-1 font-semibold mb-10">
-				<h1 className="font-semibold text-xl md:text-2xl">Users List</h1>
+				<h1 className="font-semibold text-2xl md:text-3xl">Users List</h1>
 				<Breadcrumb items={["Home", "Users List"]} />
 			</div>
-			<UsersTable />
-		</UsersFiltersProvider>
+			<UsersFilters initialFilters={search} className="mb-10" />
+			<UsersWrapper className="pb-10" />
+		</>
 	);
 }

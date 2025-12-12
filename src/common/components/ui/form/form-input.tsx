@@ -6,6 +6,7 @@ import {
 	type FieldValues,
 } from "react-hook-form";
 import { Input } from "@/common/components/ui/input/input";
+import { cn } from "@/common/utils/cn.ts";
 
 type FormInputProps<T extends FieldValues> = {
 	control: Control<T>;
@@ -19,9 +20,10 @@ export function FormInput<T extends FieldValues>({
 	name,
 	label,
 	required,
+	className,
 	error,
 	...rest
-}: FormInputProps<T>) {
+}: FormInputProps<T, K>) {
 	const id = useId();
 
 	return (
@@ -29,7 +31,7 @@ export function FormInput<T extends FieldValues>({
 			control={control}
 			name={name}
 			render={({ field, fieldState }) => (
-				<div className="flex flex-col gap-1">
+				<div className={cn("flex flex-col gap-1", className)}>
 					{label && (
 						<label htmlFor={id} className="text-sm font-medium">
 							{label} {required && "*"}

@@ -1,10 +1,10 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { Toaster } from "sonner";
 import MainErrorBoundary from "@/common/components/errors/main-error-boundary.tsx";
 import { Spinner } from "@/common/components/ui/spinner/spinner.tsx";
 import { globalSelectors } from "@/common/store/slice.ts";
 import { useAppSelector } from "@/common/store/store.ts";
 import { useGetMe } from "@/features/auth/hooks/use-get-me.ts";
+import { Toaster } from "./common/components/ui/toast/sonner.tsx";
 import { routeTree } from "./routeTree.gen.ts";
 
 const router = createRouter({
@@ -37,7 +37,12 @@ export const App = () => {
 				context={{ user }}
 				defaultErrorComponent={MainErrorBoundary}
 			/>
-			<Toaster position="top-right" />
+			<Toaster
+				position="top-right"
+				toastOptions={{
+					className: "w-[550px]! min-w-[300px]!",
+				}}
+			/>
 		</>
 	);
 };

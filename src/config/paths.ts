@@ -6,6 +6,8 @@ export const paths = {
 		users: "/admin/users",
 		products: "/admin/products",
 		orders: "/admin/orders",
+		categories: "/admin/categories",
+		brands: "/admin/brands",
 	},
 	auth: {
 		signIn: "/auth/sign-in",

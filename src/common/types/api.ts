@@ -40,10 +40,24 @@ export type User = {
 
 export type AdminUser = User & {
 	id: string;
-	isVerified: boolean;
-	isBanned: boolean;
 	createdAt: string;
 	updatedAt: string;
+	isVerified: boolean;
+	isBanned: boolean;
 	googleId: Nullable<string>;
 	facebookId: Nullable<string>;
+};
+
+export type Category = {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	name: string;
+};
+
+export type Brand = {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	name: string;
 };

@@ -5,7 +5,7 @@ import { AdminNavbar } from "@/features/admin/components/admin-navbar";
 export const AdminLayout = () => {
 	return (
 		<div className="flex">
-			<AdminNavbar className="hidden lg:block" />
+			<AdminNavbar className="hidden xl:block" />
 			<div className="flex flex-col gap-y-6 w-full">
 				<AdminHeader />
 				<main className="max-w-[2500px] px-5">

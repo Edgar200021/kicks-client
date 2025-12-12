@@ -1,5 +1,8 @@
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import type { ApiErrorResponse, ApiValidationErrorResponse } from "@/common/types/api";
+import type {
+	ApiErrorResponse,
+	ApiValidationErrorResponse,
+} from "@/common/types/api";
 
 export const isRtkErrorWithOriginalStatus = (
 	error: unknown,
