@@ -1,1 +1,1 @@
-export const TAG_TYPES = [] as const;
+export const TAG_TYPES = ["users"] as const;

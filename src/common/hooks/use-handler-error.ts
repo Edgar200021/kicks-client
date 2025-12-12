@@ -22,14 +22,12 @@ export const useHandleError = <T extends string[] = []>(
 	useEffect(() => {
 		if (!error || options?.disabled) return;
 
+		handleError(error);
+	}, [error, options?.disabled]);
+
+	const handleError = useCallback((error: unknown) => {
 		if (isRtkErrorWithStatus(error) && error.status === 429) {
 			toast.error("Too many requests");
-			return;
-		}
-
-		if (isApiValidationError(error)) {
-			setApiValidationErrors(error.errors);
-			options?.validationErrorCb?.(error.errors);
 			return;
 		}
 
@@ -38,6 +36,12 @@ export const useHandleError = <T extends string[] = []>(
 				? error.data
 				: error;
 
+		if (isApiValidationError(err)) {
+			setApiValidationErrors(err.errors);
+			options?.validationErrorCb?.(err.errors);
+			return;
+		}
+
 		toast.error(
 			isApiError(err)
 				? err.error
@@ -45,11 +49,11 @@ export const useHandleError = <T extends string[] = []>(
 					? err.message
 					: "Something went wrong",
 		);
-	}, [error, options?.disabled, options?.validationErrorCb]);
+	}, []);
 
 	const clearErrors = useCallback(() => {
 		setApiValidationErrors({});
 	}, []);
 
-	return { apiValidationErrors, clearErrors };
+	return { apiValidationErrors, clearErrors, handleError };
 };

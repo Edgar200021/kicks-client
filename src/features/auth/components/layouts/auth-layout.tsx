@@ -1,6 +1,6 @@
 import { Outlet } from "@tanstack/react-router";
-import { JoinClub } from "@/features/auth/components/join-club";
 import { cn } from "@/common/utils/cn";
+import { JoinClub } from "@/features/auth/components/join-club";
 
 interface Props {
 	className?: string;

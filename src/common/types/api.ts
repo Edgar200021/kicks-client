@@ -40,10 +40,49 @@ export type User = {
 
 export type AdminUser = User & {
 	id: string;
-	isVerified: boolean;
-	isBanned: boolean;
 	createdAt: string;
 	updatedAt: string;
+	isVerified: boolean;
+	isBanned: boolean;
 	googleId: Nullable<string>;
 	facebookId: Nullable<string>;
+};
+
+export type Category = {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	name: string;
+};
+
+export type Brand = {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	name: string;
+};
+
+export enum ProductGender {
+	Men = "men",
+	Unisex = "unisex",
+	Women = "women",
+}
+
+export type AdminProduct = {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	title: string;
+	description: string;
+	gender: ProductGender;
+	tags: string[];
+	isDeleted: boolean;
+	category: Nullable<Pick<Category, "id" | "name">>;
+	brand: Nullable<Pick<Brand, "id" | "name">>;
+};
+
+export type AdminProductFilters = {
+	tags: string[];
+	categories: string[];
+	brands: string[];
 };

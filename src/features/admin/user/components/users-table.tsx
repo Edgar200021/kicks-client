@@ -1,23 +1,9 @@
-import { CheckIcon, Users, XIcon } from "lucide-react";
-import { useEffect } from "react";
-import { toast } from "sonner";
-import z from "zod";
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableFooter,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/common/components/ui/table";
-import { useHandleError } from "@/common/hooks/use-handler-error";
+import { CheckIcon, XIcon } from "lucide-react";
+
+import type { AdminUser } from "@/common/types/api";
 import { cn } from "@/common/utils/cn";
 import { formatDate } from "@/common/utils/date";
-import { useLazyGetAllUsersQuery } from "@/features/admin/user/api/admin-user-api";
-import { useUsersFilters } from "@/features/admin/user/context/users-filters.context";
-import { getAllUsersInputSchema } from "../schemas/get-all-users.schema";
+import { UserActions } from "@/features/admin/user/components/user-actions";
 
 const headers = [
 	"ID",
@@ -27,94 +13,96 @@ const headers = [
 	"Banned",
 	"Created At",
 	"Updated At",
+	"Actions",
 ];
 
-export const UsersTable = () => {
-	const { filters } = useUsersFilters();
-	const [getAllUsers, { data, isLoading, isFetching, error }] =
-		useLazyGetAllUsersQuery();
+interface Props {
+	className?: string;
+	users: AdminUser[];
+}
 
-	useHandleError(error);
-
-	useEffect(() => {
-		(async () => {
-			const { error, data } =
-				await getAllUsersInputSchema.safeParseAsync(filters);
-			if (error) {
-				toast.error("Validation error", {
-					description: z.prettifyError(error),
-				});
-				return;
-			}
-
-			getAllUsers(data);
-		})();
-	}, [filters]);
-
+export const UsersTable = ({ users, className }: Props) => {
 	return (
-		<Table className="bg-[#f8f8f8] rounded-2xl border-collapse border-spacing-y-1">
-			<TableHeader className="text-2xl">
-				<TableRow>
-					{headers.map((h) => (
-						<TableHead
-							key={h}
-							className={cn("w-[100px] text-primary-150/80 capitalize")}
-						>
-							{h}
-						</TableHead>
-					))}
-				</TableRow>
-			</TableHeader>
-			<TableBody className="text-xl">
-				{data?.data.users.map(
-					({
-						id,
-						email,
-						firstName,
-						lastName,
-						isVerified,
-						isBanned,
-						createdAt,
-						updatedAt,
-					}) => (
-						<TableRow key={id} className="border-b! border-b-primary-150/20!">
-							<TableCell>{id}</TableCell>
-							<TableCell>{email}</TableCell>
-							<TableCell className="capitalize">
-								{!firstName && !lastName
-									? "-"
-									: `${firstName ?? ""} ${lastName ?? ""}`}
-							</TableCell>
-							<TableCell>
-								{isVerified ? (
-									<CheckIcon className="stroke-green-500" />
-								) : (
-									<XIcon className="stroke-red-500" />
-								)}
-							</TableCell>
-							<TableCell>
-								{isBanned ? (
-									<CheckIcon className="stroke-green-500" />
-								) : (
-									<XIcon className="stroke-red-500" />
-								)}
-							</TableCell>
-							<TableCell>
-								{formatDate(new Date(createdAt).toLocaleString())}
-							</TableCell>
-							<TableCell>
-								{formatDate(new Date(updatedAt).toLocaleString())}
-							</TableCell>
-						</TableRow>
-					),
-				)}
-			</TableBody>
-			<TableFooter>
-				<TableRow>
-					<TableCell colSpan={3}>Total</TableCell>
-					<TableCell className="text-right">$2,500.00</TableCell>
-				</TableRow>
-			</TableFooter>
-		</Table>
+		<div
+			className={cn(
+				"py-6 px-4 rounded-2xl bg-[#f8f8f8] max-w-full overflow-x-auto whitespace-nowrap",
+				className,
+			)}
+		>
+			<table className="w-full border-separate border-spacing-y-4">
+				<thead>
+					<tr>
+						{headers.map((h) => (
+							<th
+								id={h}
+								className="text-start font-semibold text-primary-150/80 pr-10 border-b-primary-150/20 border-b py-4"
+								key={h}
+							>
+								{h}
+							</th>
+						))}
+					</tr>
+				</thead>
+				<tbody>
+					{users.map(
+						({
+							id,
+							email,
+							firstName,
+							lastName,
+							isVerified,
+							isBanned,
+							createdAt,
+							updatedAt,
+						}) => (
+							<tr
+								key={id}
+								className="[&>td]:text-start [&>td]:text-sm [&>td]:border-b-primary-150/20 [&>td]:border-b [&>td]:py-4 [&>td]:break-all [&>td]:wrap-break-word font-secondary font-semibold"
+							>
+								<td headers="ID" className="pr-4">
+									{id}
+								</td>
+								<td headers="Email" className="pr-4">
+									{email}
+								</td>
+								<td headers="Name" className="pr-4">
+									{!firstName && !lastName
+										? "-"
+										: `${firstName ?? ""} ${lastName ?? ""}`}
+								</td>
+
+								<td headers="Verified" className="pr-4">
+									{isVerified ? (
+										<CheckIcon size={20} className="stroke-green-500 ml-5" />
+									) : (
+										<XIcon size={20} className="stroke-red-500 ml-5" />
+									)}
+								</td>
+								<td headers="Banned" className="pr-4">
+									{isBanned ? (
+										<CheckIcon size={20} className="stroke-green-500 ml-5" />
+									) : (
+										<XIcon size={20} className="stroke-red-500 ml-5" />
+									)}
+								</td>
+								<td headers="Created At" className="pr-4">
+									{formatDate(new Date(createdAt).toLocaleString())}
+								</td>
+								<td headers="Updated At" className="pr-4">
+									{formatDate(new Date(updatedAt).toLocaleString())}
+								</td>
+								<td>
+									<UserActions
+										userId={id}
+										isBanned={isBanned}
+										className="ml-5"
+									/>
+								</td>
+							</tr>
+						),
+					)}
+				</tbody>
+			</table>
+		</div>
 	);
 };

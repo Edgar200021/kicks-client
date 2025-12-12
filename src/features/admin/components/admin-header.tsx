@@ -1,10 +1,8 @@
 import {
 	Bell,
 	ChevronDownIcon,
-	ChevronRightCircleIcon,
 	ChevronRightIcon,
 	LogOut,
-	LogOutIcon,
 	SearchIcon,
 } from "lucide-react";
 import { Button } from "@/common/components/ui/button/button";
@@ -43,7 +41,7 @@ export const AdminHeader = ({ className }: Props) => {
 			)}
 		>
 			<div className="max-w-[2500px] px-5 flex items-center justify-between">
-				<div className="lg:hidden">
+				<div className="xl:hidden">
 					<Drawer direction="left">
 						<DrawerTrigger asChild>
 							<Button

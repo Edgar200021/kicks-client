@@ -4,8 +4,13 @@ export const paths = {
 	admin: {
 		root: "/admin",
 		users: "/admin/users",
-		products: "/admin/products",
+		products: {
+			root: "/admin/products",
+			sku: "/admin/products/sku",
+		},
 		orders: "/admin/orders",
+		categories: "/admin/categories",
+		brands: "/admin/brands",
 	},
 	auth: {
 		signIn: "/auth/sign-in",

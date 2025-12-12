@@ -1,39 +1,74 @@
+import type { ReactNode } from "react";
 import logoIcon from "@/common/assets/icons/logo.svg";
 import { AppLink } from "@/common/components/ui/link/link";
 import { cn } from "@/common/utils/cn";
-import type { paths } from "@/config/paths";
+import { paths } from "@/config/paths";
 import sprites from "@/features/admin/assets/icons/sprites.svg";
+import type { AdminPath } from "@/features/admin/types/path.ts";
 
 interface Props {
 	className?: string;
 }
 
-type AdminPath = (typeof paths)["admin"][keyof (typeof paths)["admin"]];
-
 const links: {
 	path: AdminPath;
-	icon: `${string}#${string}`;
+	icon: ReactNode;
 	label: Uppercase<string>;
 }[] = [
 	{
-		path: "/admin",
-		icon: `${sprites}#dashboard`,
+		path: paths.admin.root,
+		icon: (
+			<svg width={16} height={16}>
+				<use xlinkHref={`${sprites}#dashboard`} />
+			</svg>
+		),
 		label: "DASHBOARD",
 	},
 	{
-		path: "/admin/users",
-		icon: `${sprites}#dashboard`,
-		label: "USERS",
+		path: paths.admin.users,
+		icon: (
+			<svg width={16} height={16}>
+				<use xlinkHref={`${sprites}#users`} />
+			</svg>
+		),
+		label: "USERS LIST",
 	},
 	{
-		path: "/admin/products",
-		icon: `${sprites}#albums`,
+		path: paths.admin.products.root,
+		icon: (
+			<svg width={16} height={16}>
+				<use xlinkHref={`${sprites}#albums`} />
+			</svg>
+		),
 		label: "ALL PRODUCTS",
 	},
 	{
-		path: "/admin/orders",
-		icon: `${sprites}#document`,
+		path: paths.admin.orders,
+		icon: (
+			<svg width={16} height={16}>
+				<use xlinkHref={`${sprites}#document`} />
+			</svg>
+		),
 		label: "ORDERS LIST",
+	},
+	{
+		//TODO:
+		path: paths.admin.categories,
+		icon: (
+			<svg width={16} height={16}>
+				<use xlinkHref={`${sprites}#document`} />
+			</svg>
+		),
+		label: "CATEGORIES LIST",
+	},
+	{
+		path: paths.admin.brands,
+		icon: (
+			<svg width={24} height={24}>
+				<use xlinkHref={`${sprites}#brand`} />
+			</svg>
+		),
+		label: "BRAND LIST",
 	},
 ];
 
@@ -41,7 +76,7 @@ export const AdminNavbar = ({ className }: Props) => {
 	return (
 		<div
 			className={cn(
-				"py-8 px-6 bg-fa-white border-r border-r-gray-300 max-w-[360px] w-full h-dvh",
+				"py-8 px-6 bg-fa-white border-r border-r-gray-300 min-w-[300px] max-w-[360px] w-full min-h-dvh",
 				className,
 			)}
 		>
@@ -62,12 +97,11 @@ export const AdminNavbar = ({ className }: Props) => {
 								}}
 								activeOptions={{
 									exact: true,
+									includeSearch: false,
 								}}
 								to={l.path}
 							>
-								<svg className="" width={16} height={16}>
-									<use xlinkHref={l.icon} />
-								</svg>
+								{l.icon}
 								<span className="text-sm font-medium uppercase tracking-[0.32px]">
 									{l.label}
 								</span>

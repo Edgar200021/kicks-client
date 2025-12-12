@@ -20,13 +20,16 @@ import { Route as BaseAuthResetPasswordRouteImport } from './routes/_base/auth/r
 import { Route as BaseAuthForgotPasswordRouteImport } from './routes/_base/auth/forgot-password'
 import { Route as BaseAuthAccountVerificationRouteImport } from './routes/_base/auth/account-verification'
 import { Route as AdminAdminUsersRouteImport } from './routes/_admin/admin/users'
-import { Route as AdminAdminProductsRouteImport } from './routes/_admin/admin/products'
 import { Route as AdminAdminOrdersRouteImport } from './routes/_admin/admin/orders'
+import { Route as AdminAdminCategoriesRouteImport } from './routes/_admin/admin/categories'
+import { Route as AdminAdminBrandsRouteImport } from './routes/_admin/admin/brands'
 import { Route as BaseAuthsignupSigninRouteRouteImport } from './routes/_base/auth/(signup-signin)/route'
 import { Route as BaseAuthenticatedProfileIndexRouteImport } from './routes/_base/_authenticated/profile/index'
 import { Route as BaseAuthenticatedCartIndexRouteImport } from './routes/_base/_authenticated/cart/index'
+import { Route as AdminAdminProductsIndexRouteImport } from './routes/_admin/admin/products/index'
 import { Route as BaseAuthsignupSigninSignUpRouteImport } from './routes/_base/auth/(signup-signin)/sign-up'
 import { Route as BaseAuthsignupSigninSignInRouteImport } from './routes/_base/auth/(signup-signin)/sign-in'
+import { Route as AdminAdminProductsSkuRouteImport } from './routes/_admin/admin/products/sku'
 
 const BaseRoute = BaseRouteImport.update({
   id: '/_base',
@@ -81,14 +84,19 @@ const AdminAdminUsersRoute = AdminAdminUsersRouteImport.update({
   path: '/users',
   getParentRoute: () => AdminAdminRouteRoute,
 } as any)
-const AdminAdminProductsRoute = AdminAdminProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => AdminAdminRouteRoute,
-} as any)
 const AdminAdminOrdersRoute = AdminAdminOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => AdminAdminRouteRoute,
+} as any)
+const AdminAdminCategoriesRoute = AdminAdminCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => AdminAdminRouteRoute,
+} as any)
+const AdminAdminBrandsRoute = AdminAdminBrandsRouteImport.update({
+  id: '/brands',
+  path: '/brands',
   getParentRoute: () => AdminAdminRouteRoute,
 } as any)
 const BaseAuthsignupSigninRouteRoute =
@@ -108,6 +116,11 @@ const BaseAuthenticatedCartIndexRoute =
     path: '/cart/',
     getParentRoute: () => BaseAuthenticatedRoute,
   } as any)
+const AdminAdminProductsIndexRoute = AdminAdminProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => AdminAdminRouteRoute,
+} as any)
 const BaseAuthsignupSigninSignUpRoute =
   BaseAuthsignupSigninSignUpRouteImport.update({
     id: '/sign-up',
@@ -120,35 +133,46 @@ const BaseAuthsignupSigninSignInRoute =
     path: '/sign-in',
     getParentRoute: () => BaseAuthsignupSigninRouteRoute,
   } as any)
+const AdminAdminProductsSkuRoute = AdminAdminProductsSkuRouteImport.update({
+  id: '/products/sku',
+  path: '/products/sku',
+  getParentRoute: () => AdminAdminRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/admin': typeof AdminAdminRouteRouteWithChildren
   '/auth': typeof BaseAuthsignupSigninRouteRouteWithChildren
   '/': typeof BaseIndexRoute
+  '/admin/brands': typeof AdminAdminBrandsRoute
+  '/admin/categories': typeof AdminAdminCategoriesRoute
   '/admin/orders': typeof AdminAdminOrdersRoute
-  '/admin/products': typeof AdminAdminProductsRoute
   '/admin/users': typeof AdminAdminUsersRoute
   '/auth/account-verification': typeof BaseAuthAccountVerificationRoute
   '/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
   '/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/admin/': typeof AdminAdminIndexRoute
+  '/admin/products/sku': typeof AdminAdminProductsSkuRoute
   '/auth/sign-in': typeof BaseAuthsignupSigninSignInRoute
   '/auth/sign-up': typeof BaseAuthsignupSigninSignUpRoute
+  '/admin/products': typeof AdminAdminProductsIndexRoute
   '/cart': typeof BaseAuthenticatedCartIndexRoute
   '/profile': typeof BaseAuthenticatedProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof BaseAuthsignupSigninRouteRouteWithChildren
   '/': typeof BaseIndexRoute
+  '/admin/brands': typeof AdminAdminBrandsRoute
+  '/admin/categories': typeof AdminAdminCategoriesRoute
   '/admin/orders': typeof AdminAdminOrdersRoute
-  '/admin/products': typeof AdminAdminProductsRoute
   '/admin/users': typeof AdminAdminUsersRoute
   '/auth/account-verification': typeof BaseAuthAccountVerificationRoute
   '/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
   '/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/admin': typeof AdminAdminIndexRoute
+  '/admin/products/sku': typeof AdminAdminProductsSkuRoute
   '/auth/sign-in': typeof BaseAuthsignupSigninSignInRoute
   '/auth/sign-up': typeof BaseAuthsignupSigninSignUpRoute
+  '/admin/products': typeof AdminAdminProductsIndexRoute
   '/cart': typeof BaseAuthenticatedCartIndexRoute
   '/profile': typeof BaseAuthenticatedProfileIndexRoute
 }
@@ -161,15 +185,18 @@ export interface FileRoutesById {
   '/_base/_authenticated': typeof BaseAuthenticatedRouteWithChildren
   '/_base/': typeof BaseIndexRoute
   '/_base/auth/(signup-signin)': typeof BaseAuthsignupSigninRouteRouteWithChildren
+  '/_admin/admin/brands': typeof AdminAdminBrandsRoute
+  '/_admin/admin/categories': typeof AdminAdminCategoriesRoute
   '/_admin/admin/orders': typeof AdminAdminOrdersRoute
-  '/_admin/admin/products': typeof AdminAdminProductsRoute
   '/_admin/admin/users': typeof AdminAdminUsersRoute
   '/_base/auth/account-verification': typeof BaseAuthAccountVerificationRoute
   '/_base/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
   '/_base/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
+  '/_admin/admin/products/sku': typeof AdminAdminProductsSkuRoute
   '/_base/auth/(signup-signin)/sign-in': typeof BaseAuthsignupSigninSignInRoute
   '/_base/auth/(signup-signin)/sign-up': typeof BaseAuthsignupSigninSignUpRoute
+  '/_admin/admin/products/': typeof AdminAdminProductsIndexRoute
   '/_base/_authenticated/cart/': typeof BaseAuthenticatedCartIndexRoute
   '/_base/_authenticated/profile/': typeof BaseAuthenticatedProfileIndexRoute
 }
@@ -179,30 +206,36 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/'
+    | '/admin/brands'
+    | '/admin/categories'
     | '/admin/orders'
-    | '/admin/products'
     | '/admin/users'
     | '/auth/account-verification'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/admin/'
+    | '/admin/products/sku'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/admin/products'
     | '/cart'
     | '/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
     | '/'
+    | '/admin/brands'
+    | '/admin/categories'
     | '/admin/orders'
-    | '/admin/products'
     | '/admin/users'
     | '/auth/account-verification'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/admin'
+    | '/admin/products/sku'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/admin/products'
     | '/cart'
     | '/profile'
   id:
@@ -214,15 +247,18 @@ export interface FileRouteTypes {
     | '/_base/_authenticated'
     | '/_base/'
     | '/_base/auth/(signup-signin)'
+    | '/_admin/admin/brands'
+    | '/_admin/admin/categories'
     | '/_admin/admin/orders'
-    | '/_admin/admin/products'
     | '/_admin/admin/users'
     | '/_base/auth/account-verification'
     | '/_base/auth/forgot-password'
     | '/_base/auth/reset-password'
     | '/_admin/admin/'
+    | '/_admin/admin/products/sku'
     | '/_base/auth/(signup-signin)/sign-in'
     | '/_base/auth/(signup-signin)/sign-up'
+    | '/_admin/admin/products/'
     | '/_base/_authenticated/cart/'
     | '/_base/_authenticated/profile/'
   fileRoutesById: FileRoutesById
@@ -311,18 +347,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminUsersRouteImport
       parentRoute: typeof AdminAdminRouteRoute
     }
-    '/_admin/admin/products': {
-      id: '/_admin/admin/products'
-      path: '/products'
-      fullPath: '/admin/products'
-      preLoaderRoute: typeof AdminAdminProductsRouteImport
-      parentRoute: typeof AdminAdminRouteRoute
-    }
     '/_admin/admin/orders': {
       id: '/_admin/admin/orders'
       path: '/orders'
       fullPath: '/admin/orders'
       preLoaderRoute: typeof AdminAdminOrdersRouteImport
+      parentRoute: typeof AdminAdminRouteRoute
+    }
+    '/_admin/admin/categories': {
+      id: '/_admin/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminAdminCategoriesRouteImport
+      parentRoute: typeof AdminAdminRouteRoute
+    }
+    '/_admin/admin/brands': {
+      id: '/_admin/admin/brands'
+      path: '/brands'
+      fullPath: '/admin/brands'
+      preLoaderRoute: typeof AdminAdminBrandsRouteImport
       parentRoute: typeof AdminAdminRouteRoute
     }
     '/_base/auth/(signup-signin)': {
@@ -346,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseAuthenticatedCartIndexRouteImport
       parentRoute: typeof BaseAuthenticatedRoute
     }
+    '/_admin/admin/products/': {
+      id: '/_admin/admin/products/'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminAdminProductsIndexRouteImport
+      parentRoute: typeof AdminAdminRouteRoute
+    }
     '/_base/auth/(signup-signin)/sign-up': {
       id: '/_base/auth/(signup-signin)/sign-up'
       path: '/sign-up'
@@ -360,21 +410,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseAuthsignupSigninSignInRouteImport
       parentRoute: typeof BaseAuthsignupSigninRouteRoute
     }
+    '/_admin/admin/products/sku': {
+      id: '/_admin/admin/products/sku'
+      path: '/products/sku'
+      fullPath: '/admin/products/sku'
+      preLoaderRoute: typeof AdminAdminProductsSkuRouteImport
+      parentRoute: typeof AdminAdminRouteRoute
+    }
   }
 }
 
 interface AdminAdminRouteRouteChildren {
+  AdminAdminBrandsRoute: typeof AdminAdminBrandsRoute
+  AdminAdminCategoriesRoute: typeof AdminAdminCategoriesRoute
   AdminAdminOrdersRoute: typeof AdminAdminOrdersRoute
-  AdminAdminProductsRoute: typeof AdminAdminProductsRoute
   AdminAdminUsersRoute: typeof AdminAdminUsersRoute
   AdminAdminIndexRoute: typeof AdminAdminIndexRoute
+  AdminAdminProductsSkuRoute: typeof AdminAdminProductsSkuRoute
+  AdminAdminProductsIndexRoute: typeof AdminAdminProductsIndexRoute
 }
 
 const AdminAdminRouteRouteChildren: AdminAdminRouteRouteChildren = {
+  AdminAdminBrandsRoute: AdminAdminBrandsRoute,
+  AdminAdminCategoriesRoute: AdminAdminCategoriesRoute,
   AdminAdminOrdersRoute: AdminAdminOrdersRoute,
-  AdminAdminProductsRoute: AdminAdminProductsRoute,
   AdminAdminUsersRoute: AdminAdminUsersRoute,
   AdminAdminIndexRoute: AdminAdminIndexRoute,
+  AdminAdminProductsSkuRoute: AdminAdminProductsSkuRoute,
+  AdminAdminProductsIndexRoute: AdminAdminProductsIndexRoute,
 }
 
 const AdminAdminRouteRouteWithChildren = AdminAdminRouteRoute._addFileChildren(
