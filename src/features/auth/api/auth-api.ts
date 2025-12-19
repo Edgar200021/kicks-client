@@ -1,5 +1,5 @@
-import { api } from "@/common/lib/api";
-import { globalActions } from "@/common/store/slice";
+import { api } from "@/lib/api";
+import { globalActions } from "@/store/slice";
 import { endpoints } from "@/config/endpoints";
 import type {
 	ForgotPasswordRequest,

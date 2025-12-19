@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import z from "zod";
 import { Spinner } from "@/common/components/ui/spinner/spinner";
 import { useHandleError } from "@/common/hooks/use-handler-error";
-import { useAppSelector } from "@/common/store/store";
+import { useAppSelector } from "@/store/store";
 import { cn } from "@/common/utils/cn";
 import { useLazyGetAllUsersQuery } from "@/features/admin/user/api/admin-user-api";
 import { UsersPagination } from "@/features/admin/user/components/users-pagination";

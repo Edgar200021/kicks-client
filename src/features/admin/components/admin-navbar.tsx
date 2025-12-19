@@ -6,9 +6,6 @@ import { paths } from "@/config/paths";
 import sprites from "@/features/admin/assets/icons/sprites.svg";
 import type { AdminPath } from "@/features/admin/types/path.ts";
 
-interface Props {
-	className?: string;
-}
 
 const links: {
 	path: AdminPath;
@@ -72,7 +69,14 @@ const links: {
 	},
 ];
 
-export const AdminNavbar = ({ className }: Props) => {
+interface Props {
+	className?: string;
+	onClick: () => void
+}
+
+
+export const AdminNavbar = ({ className, onClick }: Props) => {
+
 	return (
 		<div
 			className={cn(
@@ -91,6 +95,7 @@ export const AdminNavbar = ({ className }: Props) => {
 					{links.map((l) => (
 						<li key={l.path}>
 							<AppLink
+								onClick={onClick}
 								className="flex items-center gap-x-2.5 p-4.5 text-primary-150 uppercase hover:bg-blue rounded-xl hover:text-white transition-colors duration-300 ease"
 								activeProps={{
 									className: "bg-blue text-white",

@@ -6,7 +6,7 @@ import {
 	MultiSelectTrigger,
 	MultiSelectValue,
 } from "@/common/components/ui/multi-select/multi-select.tsx";
-import { useAppDispatch, useAppSelector } from "@/common/store/store.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
@@ -20,7 +20,7 @@ export const AdminProductFiltersTags = () => {
 
 	const dispatch = useAppDispatch();
 
-	if (!!serverFilters.categories.length) return null;
+	if (!!serverFilters.tags.length) return null;
 
 	return (
 		<MultiSelect

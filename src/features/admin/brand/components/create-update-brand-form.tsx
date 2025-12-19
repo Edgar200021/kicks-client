@@ -65,7 +65,7 @@ export const CreateUpdateBrandForm = ({ updateData, renderTrigger }: Props) => {
 		if ("id" in data) {
 			await updateBrand(data).unwrap();
 		} else {
-			await createBrand(data);
+			await createBrand(data).unwrap();
 		}
 
 		setOpen(false);

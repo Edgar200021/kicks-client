@@ -10,8 +10,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/common/components/ui/select/select.tsx";
-import { useAppDispatch, useAppSelector } from "@/common/store/store.ts";
-import type { ProductGender } from "@/common/types/api.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
+import { ProductGender } from "@/common/types/api.ts";
 
 export const AdminProductFiltersGender = () => {
 	const gender = useAppSelector(adminProductSelectors.getLazyFiltersSearch);

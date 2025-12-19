@@ -2,7 +2,7 @@ import {
 	type RootState,
 	useAppDispatch,
 	useAppSelector,
-} from "@/common/store/store.ts";
+} from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
@@ -82,7 +82,6 @@ export const useSetAdminFilters = <T extends AdminFilterType>(
 	type: T,
 	initialFilters?: FilterMap[T],
 ) => {
-
 	const { selectors, actions, path } = useMemo(
 		() => adminFiltersConfig[type],
 		[type],

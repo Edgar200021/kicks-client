@@ -1,4 +1,4 @@
-import { Label } from "@/common/components/ui/label/label.tsx";
+import {Label} from "@/common/components/ui/label/label.tsx";
 import {
 	Select,
 	SelectContent,
@@ -6,7 +6,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/common/components/ui/select/select.tsx";
-import { useAppDispatch, useAppSelector } from "@/common/store/store.ts";
+import {useAppDispatch, useAppSelector} from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
@@ -16,23 +16,23 @@ export const AdminProductFiltersBrand = () => {
 	const serverFilters = useAppSelector(
 		adminProductSelectors.getFiltersFromServer,
 	);
-	const brand = useAppSelector(adminProductSelectors.getLazyFiltersBrand);
+	const brandId = useAppSelector(adminProductSelectors.getLazyFiltersBrandId);
 
 	const dispatch = useAppDispatch();
 
-	if (!!serverFilters.brands.length) return null;
+	if (!serverFilters?.availableBrands.length) return null;
 
 	return (
 		<div className="grid gap-2">
 			<Label>Brand</Label>
 			<Select
-				value={brand === undefined ? "all" : String(brand)}
+				value={brandId === undefined ? "all" : String(brandId)}
 				onValueChange={(value) =>
 					dispatch(
 						adminProductActions.setFilters({
 							type: "lazy",
 							filters: {
-								brand: value === "all" ? undefined : value,
+								brandId: value === "all" ? undefined : value,
 							},
 						}),
 					)
@@ -43,10 +43,13 @@ export const AdminProductFiltersBrand = () => {
 				</SelectTrigger>
 				<SelectContent side="bottom">
 					<SelectItem value="all">All</SelectItem>
-					{serverFilters.brands.map((g) => {
+					{serverFilters.availableBrands.map((b) => {
 						return (
-							<SelectItem key={g} value={g}>
-								{g}
+							<SelectItem
+								key={b.id}
+								value={b.id}
+							>
+								{b.name}
 							</SelectItem>
 						);
 					})}

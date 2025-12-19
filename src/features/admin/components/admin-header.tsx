@@ -6,11 +6,7 @@ import {
 	SearchIcon,
 } from "lucide-react";
 import { Button } from "@/common/components/ui/button/button";
-import {
-	Drawer,
-	DrawerContent,
-	DrawerTrigger,
-} from "@/common/components/ui/drawer/drawer";
+
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -23,7 +19,7 @@ import { AppLink } from "@/common/components/ui/link/link";
 import { useGetUser } from "@/common/hooks/use-get-user";
 import { useLogout } from "@/common/hooks/use-logout";
 import { cn } from "@/common/utils/cn";
-import { AdminNavbar } from "@/features/admin/components/admin-navbar";
+import {NavbarWrapper} from "@/features/admin/components/NavbarWrapper.tsx";
 
 interface Props {
 	className?: string;
@@ -41,22 +37,7 @@ export const AdminHeader = ({ className }: Props) => {
 			)}
 		>
 			<div className="max-w-[2500px] px-5 flex items-center justify-between">
-				<div className="xl:hidden">
-					<Drawer direction="left">
-						<DrawerTrigger asChild>
-							<Button
-								variant="ghost"
-								className="relative w-4.5 h-3 p-0 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-0.5 before:bg-black before:transition-all before:duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5  after:bg-black after:transition-all after:duration-300  data-[state=open]:before:top-1/2 data-[state=open]:before:rotate-45 data-[state=open]:after:top-1/2 data-[state=open]:after:-rotate-45 data-[state=open]:[&_span]:opacity-0
-               "
-							>
-								<span className="h-0.5 w-full absolute bg-black top-[50%] -translate-y-1/2 tranition-opacity duration-300"></span>
-							</Button>
-						</DrawerTrigger>
-						<DrawerContent className="bg-fa-white">
-							<AdminNavbar className="border-0 max-w-full" />
-						</DrawerContent>
-					</Drawer>
-				</div>
+				<NavbarWrapper/>
 				<div className="ml-auto flex items-center gap-x-8">
 					<SearchIcon size={20} className="text-primary-150 cursor-pointer" />
 					<Bell className="cursor-pointer fill-blue stroke-blue" size={20} />

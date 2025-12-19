@@ -1,5 +1,5 @@
-import { api } from "@/common/lib/api";
-import type { RootState } from "@/common/store/store";
+import { api } from "@/lib/api";
+import type { RootState } from "@/store/store";
 import type { UUID } from "@/common/types/common";
 import { endpoints } from "@/config/endpoints";
 import type {
@@ -56,7 +56,7 @@ export const adminCategoryApi = api.injectEndpoints({
 			UpdateCategoryRequest
 		>({
 			query: (body) => ({
-				url: endpoints.admin.categories.update(body.id as UUID),
+				url: endpoints.admin.categories.update(body.id),
 				method: "PATCH",
 				body: {
 					name: body.name,
@@ -96,7 +96,7 @@ export const adminCategoryApi = api.injectEndpoints({
 			RemoveCategoryRequest
 		>({
 			query: (params) => ({
-				url: endpoints.admin.categories.remove(params.id as UUID),
+				url: endpoints.admin.categories.remove(params.id),
 				method: "DELETE",
 			}),
 			onQueryStarted: async (

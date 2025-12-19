@@ -1,6 +1,5 @@
-import { api } from "@/common/lib/api";
-import type { RootState } from "@/common/store/store";
-import type { UUID } from "@/common/types/common";
+import { api } from "@/lib/api";
+import type { RootState } from "@/store/store";
 import { endpoints } from "@/config/endpoints";
 import type {
 	CreateBrandRequest,
@@ -47,7 +46,7 @@ export const adminBrandApi = api.injectEndpoints({
 
 		updateBrand: builder.mutation<UpdateBrandResponse, UpdateBrandRequest>({
 			query: (body) => ({
-				url: endpoints.admin.brands.update(body.id as UUID),
+				url: endpoints.admin.brands.update(body.id),
 				method: "PATCH",
 				body: {
 					name: body.name,
@@ -82,7 +81,7 @@ export const adminBrandApi = api.injectEndpoints({
 
 		removeBrand: builder.mutation<RemoveBrandResponse, RemoveBrandRequest>({
 			query: (params) => ({
-				url: endpoints.admin.brands.remove(params.id as UUID),
+				url: endpoints.admin.brands.remove(params.id ),
 				method: "DELETE",
 			}),
 			onQueryStarted: async (

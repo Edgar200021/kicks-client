@@ -1,6 +1,5 @@
-import { api } from "@/common/lib/api";
-import type { RootState } from "@/common/store/store";
-import type { UUID } from "@/common/types/common";
+import { api } from "@/lib/api";
+import type { RootState } from "@/store/store";
 import { endpoints } from "@/config/endpoints";
 import type {
 	BlockToggleRequest,
@@ -20,7 +19,7 @@ export const adminUserApi = api.injectEndpoints({
 
 		blockToggle: builder.mutation<BlockToggleResponse, BlockToggleRequest>({
 			query: (params) => ({
-				url: endpoints.admin.users.blockToggle(params.id as UUID),
+				url: endpoints.admin.users.blockToggle(params.id),
 				method: "PATCH",
 			}),
 			onQueryStarted: async (
@@ -56,7 +55,7 @@ export const adminUserApi = api.injectEndpoints({
 
 		removeUser: builder.mutation<BlockToggleResponse, BlockToggleRequest>({
 			query: (params) => ({
-				url: endpoints.admin.users.remove(params.id as UUID),
+				url: endpoints.admin.users.remove(params.id ),
 				method: "DELETE",
 			}),
 			onQueryStarted: async (

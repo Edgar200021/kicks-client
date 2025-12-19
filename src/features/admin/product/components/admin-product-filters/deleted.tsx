@@ -1,5 +1,5 @@
 import { Label } from "@/common/components/ui/label/label.tsx";
-import { useAppDispatch, useAppSelector } from "@/common/store/store.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,

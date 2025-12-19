@@ -23,7 +23,7 @@ export function FormInput<T extends FieldValues>({
 	className,
 	error,
 	...rest
-}: FormInputProps<T, K>) {
+}: FormInputProps<T>) {
 	const id = useId();
 
 	return (

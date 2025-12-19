@@ -1,4 +1,4 @@
-import { api } from "@/common/lib/api";
+import { api } from "@/lib/api";
 
 export const userApi = api.injectEndpoints({
 	endpoints: (builder) => ({}),

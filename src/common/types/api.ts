@@ -1,4 +1,4 @@
-import type { Nullable } from "@/common/types/common";
+import type {Nullable} from "@/common/types/common";
 
 export type ApiSuccessResponse<T> = {
 	statusCode: number;
@@ -83,6 +83,8 @@ export type AdminProduct = {
 
 export type AdminProductFilters = {
 	tags: string[];
-	categories: string[];
-	brands: string[];
+	categories: { id: Category["id"]; name: Category["name"] }[];
+	availableCategories: { id: Category["id"]; name: Category["name"] }[];
+	brands: { id: Brand["id"]; name: Brand["name"] }[];
+	availableBrands: { id: Brand["id"]; name: Brand["name"] }[];
 };

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Spinner } from "@/common/components/ui/spinner/spinner";
 import { useHandleError } from "@/common/hooks/use-handler-error";
-import { useAppSelector } from "@/common/store/store";
+import { useAppSelector } from "@/store/store";
 import { cn } from "@/common/utils/cn";
 
 import { AdminProductsTable } from "./admin-products-table.tsx";
@@ -68,8 +68,7 @@ export const AdminProductsWrapper = ({ className }: Props) => {
 			/>
 
 			{!!data?.data.products.length && (
-				<ul className="min-[2000px]:hidden grid grid-cols-1 min-[800px]:grid-cols-2 gap-6 mb-6">
-					`
+				<ul className="min-[2000px]:hidden grid grid-cols-1 min-[800px]:grid-cols-2 gap-6 mb-6 content-start">
 					{data.data.products.map((p) => (
 						<li key={p.id} className="flex h-full">
 							<AdminProduct product={p} />

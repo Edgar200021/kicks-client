@@ -1,7 +1,7 @@
 import { SearchIcon, ShoppingCart, UserRound } from "lucide-react";
 import { AppLink } from "@/common/components/ui/link/link";
-import { globalSelectors } from "@/common/store/slice";
-import { useAppSelector } from "@/common/store/store";
+import { globalSelectors } from "@/store/slice";
+import { useAppSelector } from "@/store/store";
 import { cn } from "@/common/utils/cn";
 import { paths } from "@/config/paths";
 

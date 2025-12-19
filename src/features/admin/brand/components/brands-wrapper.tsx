@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Spinner } from "@/common/components/ui/spinner/spinner";
 import { useHandleError } from "@/common/hooks/use-handler-error";
-import { useAppSelector } from "@/common/store/store";
+import { useAppSelector } from "@/store/store";
 import { cn } from "@/common/utils/cn";
 import { useLazyGetAllBrandsQuery } from "../api/admin-brand-api.ts";
 

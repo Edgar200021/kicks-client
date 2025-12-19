@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
-import { globalSelectors } from "@/common/store/slice";
-import { useAppSelector } from "@/common/store/store";
+import { globalSelectors } from "@/store/slice";
+import { useAppSelector } from "@/store/store";
 import type { User } from "@/common/types/api";
 import { paths } from "@/config/paths";
 
