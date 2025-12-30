@@ -1,6 +1,6 @@
+import { endpoints } from "@/config/endpoints";
 import { api } from "@/lib/api";
 import type { RootState } from "@/store/store";
-import { endpoints } from "@/config/endpoints";
 import type {
 	CreateBrandRequest,
 	CreateBrandResponse,
@@ -81,7 +81,7 @@ export const adminBrandApi = api.injectEndpoints({
 
 		removeBrand: builder.mutation<RemoveBrandResponse, RemoveBrandRequest>({
 			query: (params) => ({
-				url: endpoints.admin.brands.remove(params.id ),
+				url: endpoints.admin.brands.remove(params.id),
 				method: "DELETE",
 			}),
 			onQueryStarted: async (

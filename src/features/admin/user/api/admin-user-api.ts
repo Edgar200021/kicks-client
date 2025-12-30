@@ -1,5 +1,3 @@
-import { api } from "@/lib/api";
-import type { RootState } from "@/store/store";
 import { endpoints } from "@/config/endpoints";
 import type {
 	BlockToggleRequest,
@@ -7,6 +5,8 @@ import type {
 	GetAllUsersRequest,
 	GetAllUsersResponse,
 } from "@/features/admin/user/types/api";
+import { api } from "@/lib/api";
+import type { RootState } from "@/store/store";
 
 export const adminUserApi = api.injectEndpoints({
 	endpoints: (builder) => ({
@@ -55,7 +55,7 @@ export const adminUserApi = api.injectEndpoints({
 
 		removeUser: builder.mutation<BlockToggleResponse, BlockToggleRequest>({
 			query: (params) => ({
-				url: endpoints.admin.users.remove(params.id ),
+				url: endpoints.admin.users.remove(params.id),
 				method: "DELETE",
 			}),
 			onQueryStarted: async (

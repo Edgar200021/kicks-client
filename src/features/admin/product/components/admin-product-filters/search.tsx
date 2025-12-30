@@ -1,14 +1,21 @@
 //
 import { Input } from "@/common/components/ui/input/input";
 import { Label } from "@/common/components/ui/label/label";
-import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
+	type ProductFiltersTarget,
 } from "@/features/admin/product/store/admin-product-slice.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 
-export const AdminProductFiltersSearch = () => {
-	const search = useAppSelector(adminProductSelectors.getLazyFiltersSearch);
+interface Props {
+	target: ProductFiltersTarget;
+}
+
+export const AdminProductFiltersSearch = ({ target }: Props) => {
+	const search = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersSearch(state, target),
+	);
 	const dispatch = useAppDispatch();
 
 	return (
@@ -16,13 +23,18 @@ export const AdminProductFiltersSearch = () => {
 			<Label htmlFor="search">Search</Label>
 			<Input
 				id="search"
-				placeholder="Search by title or description"
+				placeholder={`Search by ${target === "product" ? "" : "sku, "}title or description`}
 				value={search ?? ""}
 				onChange={(e) =>
 					dispatch(
 						adminProductActions.setFilters({
 							type: "lazy",
-							filters: { search: e.target.value },
+							filters: {
+								target,
+								data: {
+									search: e.target.value,
+								},
+							},
 						}),
 					)
 				}

@@ -22,8 +22,8 @@ import {
 } from "@/common/components/ui/popover/popover";
 
 import { cn } from "@/common/utils/cn";
-import type { GetAllCategoriesInput } from "../schemas/get-all-categories.schema";
 import { useSetAdminFilters } from "@/features/admin/hooks/use-set-admin-filters.ts";
+import type { GetAllCategoriesInput } from "../schemas/get-all-categories.schema";
 
 interface Props {
 	className?: string;

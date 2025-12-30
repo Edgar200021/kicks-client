@@ -29,7 +29,9 @@ import { Route as BaseAuthenticatedCartIndexRouteImport } from './routes/_base/_
 import { Route as AdminAdminProductsIndexRouteImport } from './routes/_admin/admin/products/index'
 import { Route as BaseAuthsignupSigninSignUpRouteImport } from './routes/_base/auth/(signup-signin)/sign-up'
 import { Route as BaseAuthsignupSigninSignInRouteImport } from './routes/_base/auth/(signup-signin)/sign-in'
-import { Route as AdminAdminProductsSkuRouteImport } from './routes/_admin/admin/products/sku'
+import { Route as AdminAdminProductsIdRouteImport } from './routes/_admin/admin/products/$id'
+import { Route as AdminAdminProductsSkuIndexRouteImport } from './routes/_admin/admin/products/sku/index'
+import { Route as AdminAdminProductsSkuIdRouteImport } from './routes/_admin/admin/products/sku/$id'
 
 const BaseRoute = BaseRouteImport.update({
   id: '/_base',
@@ -133,9 +135,20 @@ const BaseAuthsignupSigninSignInRoute =
     path: '/sign-in',
     getParentRoute: () => BaseAuthsignupSigninRouteRoute,
   } as any)
-const AdminAdminProductsSkuRoute = AdminAdminProductsSkuRouteImport.update({
-  id: '/products/sku',
-  path: '/products/sku',
+const AdminAdminProductsIdRoute = AdminAdminProductsIdRouteImport.update({
+  id: '/products/$id',
+  path: '/products/$id',
+  getParentRoute: () => AdminAdminRouteRoute,
+} as any)
+const AdminAdminProductsSkuIndexRoute =
+  AdminAdminProductsSkuIndexRouteImport.update({
+    id: '/products/sku/',
+    path: '/products/sku/',
+    getParentRoute: () => AdminAdminRouteRoute,
+  } as any)
+const AdminAdminProductsSkuIdRoute = AdminAdminProductsSkuIdRouteImport.update({
+  id: '/products/sku/$id',
+  path: '/products/sku/$id',
   getParentRoute: () => AdminAdminRouteRoute,
 } as any)
 
@@ -151,12 +164,14 @@ export interface FileRoutesByFullPath {
   '/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
   '/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/admin/': typeof AdminAdminIndexRoute
-  '/admin/products/sku': typeof AdminAdminProductsSkuRoute
+  '/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/auth/sign-in': typeof BaseAuthsignupSigninSignInRoute
   '/auth/sign-up': typeof BaseAuthsignupSigninSignUpRoute
   '/admin/products': typeof AdminAdminProductsIndexRoute
   '/cart': typeof BaseAuthenticatedCartIndexRoute
   '/profile': typeof BaseAuthenticatedProfileIndexRoute
+  '/admin/products/sku/$id': typeof AdminAdminProductsSkuIdRoute
+  '/admin/products/sku': typeof AdminAdminProductsSkuIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof BaseAuthsignupSigninRouteRouteWithChildren
@@ -169,12 +184,14 @@ export interface FileRoutesByTo {
   '/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
   '/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/admin': typeof AdminAdminIndexRoute
-  '/admin/products/sku': typeof AdminAdminProductsSkuRoute
+  '/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/auth/sign-in': typeof BaseAuthsignupSigninSignInRoute
   '/auth/sign-up': typeof BaseAuthsignupSigninSignUpRoute
   '/admin/products': typeof AdminAdminProductsIndexRoute
   '/cart': typeof BaseAuthenticatedCartIndexRoute
   '/profile': typeof BaseAuthenticatedProfileIndexRoute
+  '/admin/products/sku/$id': typeof AdminAdminProductsSkuIdRoute
+  '/admin/products/sku': typeof AdminAdminProductsSkuIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -193,12 +210,14 @@ export interface FileRoutesById {
   '/_base/auth/forgot-password': typeof BaseAuthForgotPasswordRoute
   '/_base/auth/reset-password': typeof BaseAuthResetPasswordRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
-  '/_admin/admin/products/sku': typeof AdminAdminProductsSkuRoute
+  '/_admin/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/_base/auth/(signup-signin)/sign-in': typeof BaseAuthsignupSigninSignInRoute
   '/_base/auth/(signup-signin)/sign-up': typeof BaseAuthsignupSigninSignUpRoute
   '/_admin/admin/products/': typeof AdminAdminProductsIndexRoute
   '/_base/_authenticated/cart/': typeof BaseAuthenticatedCartIndexRoute
   '/_base/_authenticated/profile/': typeof BaseAuthenticatedProfileIndexRoute
+  '/_admin/admin/products/sku/$id': typeof AdminAdminProductsSkuIdRoute
+  '/_admin/admin/products/sku/': typeof AdminAdminProductsSkuIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -214,12 +233,14 @@ export interface FileRouteTypes {
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/admin/'
-    | '/admin/products/sku'
+    | '/admin/products/$id'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/admin/products'
     | '/cart'
     | '/profile'
+    | '/admin/products/sku/$id'
+    | '/admin/products/sku'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
@@ -232,12 +253,14 @@ export interface FileRouteTypes {
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/admin'
-    | '/admin/products/sku'
+    | '/admin/products/$id'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/admin/products'
     | '/cart'
     | '/profile'
+    | '/admin/products/sku/$id'
+    | '/admin/products/sku'
   id:
     | '__root__'
     | '/_admin'
@@ -255,12 +278,14 @@ export interface FileRouteTypes {
     | '/_base/auth/forgot-password'
     | '/_base/auth/reset-password'
     | '/_admin/admin/'
-    | '/_admin/admin/products/sku'
+    | '/_admin/admin/products/$id'
     | '/_base/auth/(signup-signin)/sign-in'
     | '/_base/auth/(signup-signin)/sign-up'
     | '/_admin/admin/products/'
     | '/_base/_authenticated/cart/'
     | '/_base/_authenticated/profile/'
+    | '/_admin/admin/products/sku/$id'
+    | '/_admin/admin/products/sku/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -410,11 +435,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseAuthsignupSigninSignInRouteImport
       parentRoute: typeof BaseAuthsignupSigninRouteRoute
     }
-    '/_admin/admin/products/sku': {
-      id: '/_admin/admin/products/sku'
+    '/_admin/admin/products/$id': {
+      id: '/_admin/admin/products/$id'
+      path: '/products/$id'
+      fullPath: '/admin/products/$id'
+      preLoaderRoute: typeof AdminAdminProductsIdRouteImport
+      parentRoute: typeof AdminAdminRouteRoute
+    }
+    '/_admin/admin/products/sku/': {
+      id: '/_admin/admin/products/sku/'
       path: '/products/sku'
       fullPath: '/admin/products/sku'
-      preLoaderRoute: typeof AdminAdminProductsSkuRouteImport
+      preLoaderRoute: typeof AdminAdminProductsSkuIndexRouteImport
+      parentRoute: typeof AdminAdminRouteRoute
+    }
+    '/_admin/admin/products/sku/$id': {
+      id: '/_admin/admin/products/sku/$id'
+      path: '/products/sku/$id'
+      fullPath: '/admin/products/sku/$id'
+      preLoaderRoute: typeof AdminAdminProductsSkuIdRouteImport
       parentRoute: typeof AdminAdminRouteRoute
     }
   }
@@ -426,8 +465,10 @@ interface AdminAdminRouteRouteChildren {
   AdminAdminOrdersRoute: typeof AdminAdminOrdersRoute
   AdminAdminUsersRoute: typeof AdminAdminUsersRoute
   AdminAdminIndexRoute: typeof AdminAdminIndexRoute
-  AdminAdminProductsSkuRoute: typeof AdminAdminProductsSkuRoute
+  AdminAdminProductsIdRoute: typeof AdminAdminProductsIdRoute
   AdminAdminProductsIndexRoute: typeof AdminAdminProductsIndexRoute
+  AdminAdminProductsSkuIdRoute: typeof AdminAdminProductsSkuIdRoute
+  AdminAdminProductsSkuIndexRoute: typeof AdminAdminProductsSkuIndexRoute
 }
 
 const AdminAdminRouteRouteChildren: AdminAdminRouteRouteChildren = {
@@ -436,8 +477,10 @@ const AdminAdminRouteRouteChildren: AdminAdminRouteRouteChildren = {
   AdminAdminOrdersRoute: AdminAdminOrdersRoute,
   AdminAdminUsersRoute: AdminAdminUsersRoute,
   AdminAdminIndexRoute: AdminAdminIndexRoute,
-  AdminAdminProductsSkuRoute: AdminAdminProductsSkuRoute,
+  AdminAdminProductsIdRoute: AdminAdminProductsIdRoute,
   AdminAdminProductsIndexRoute: AdminAdminProductsIndexRoute,
+  AdminAdminProductsSkuIdRoute: AdminAdminProductsSkuIdRoute,
+  AdminAdminProductsSkuIndexRoute: AdminAdminProductsSkuIndexRoute,
 }
 
 const AdminAdminRouteRouteWithChildren = AdminAdminRouteRoute._addFileChildren(

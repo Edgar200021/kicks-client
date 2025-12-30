@@ -1,4 +1,4 @@
-import { Calendar, Package, Trash2, CheckCircle } from "lucide-react";
+import { Calendar, CheckCircle, Package, Trash2 } from "lucide-react";
 import type { AdminProduct as TAdminProduct } from "@/common/types/api";
 import { cn } from "@/common/utils/cn";
 import { formatDate } from "@/common/utils/date";

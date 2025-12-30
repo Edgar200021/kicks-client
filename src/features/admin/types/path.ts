@@ -1,4 +1,4 @@
-import { paths } from "@/config/paths.ts";
+import type { paths } from "@/config/paths.ts";
 
 type ExtractPaths<T> = T extends string
 	? T

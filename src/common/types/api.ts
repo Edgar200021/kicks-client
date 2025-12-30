@@ -1,4 +1,4 @@
-import type {Nullable} from "@/common/types/common";
+import type { Nullable } from "@/common/types/common";
 
 export type ApiSuccessResponse<T> = {
 	statusCode: number;
@@ -79,6 +79,25 @@ export type AdminProduct = {
 	isDeleted: boolean;
 	category: Nullable<Pick<Category, "id" | "name">>;
 	brand: Nullable<Pick<Brand, "id" | "name">>;
+};
+
+export type AdminProductSku = {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	color: string;
+	price: number;
+	quantity: number;
+	salePrice: number | null;
+	size: number;
+	sku: string;
+	images: {
+		id: string;
+		imageId: string;
+		imageUrl: string;
+		imageName: string;
+	}[];
+	product: AdminProduct;
 };
 
 export type AdminProductFilters = {

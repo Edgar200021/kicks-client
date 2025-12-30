@@ -7,9 +7,9 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { toast } from "sonner";
 import { TAG_TYPES } from "@/common/constants/redux.ts";
-import { globalActions } from "@/store/slice.ts";
 import { endpoints } from "@/config/endpoints.ts";
 import { env } from "@/config/env.ts";
+import { globalActions } from "@/store/slice.ts";
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: env.API_URL,

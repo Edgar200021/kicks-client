@@ -1,9 +1,9 @@
-import { Calendar, Tag, Hash } from "lucide-react";
+import { Calendar, Hash, Tag } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/common/components/ui/button/button";
 import { Badge } from "@/common/components/ui/badge/badge";
-import { cn } from "@/common/utils/cn";
+import { Button } from "@/common/components/ui/button/button";
 import type { Brand } from "@/common/types/api.ts";
+import { cn } from "@/common/utils/cn";
 import { BrandsActions } from "@/features/admin/brand/components/brands-actions.tsx"; // если будут действия
 
 type Props = {

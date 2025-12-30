@@ -1,3 +1,5 @@
+import type z from "zod";
+
 export const PRODUCT_TITLE_MIN_LENGTH = 5;
 export const PRODUCT_TITLE_MAX_LENGTH = 60;
 export const PRODUCT_DESCRIPTION_MIN_LENGTH = 20;
@@ -7,3 +9,17 @@ export const GET_ALL_ADMIN_PRODUCTS_MAX_LIMIT = 100;
 export const GET_ALL_ADMIN_PRODUCTS_SEARCH_MAX_LENGTH =
 	PRODUCT_DESCRIPTION_MAX_LENGTH;
 export const GET_ALL_ADMIN_PRODUCTS_TAGS_MAX_LENGTH = 100;
+
+export const PRODUCT_SKU_SKU_MIN_LENGTH = 4;
+export const PRODUCT_SKU_SKU_MAX_LENGTH = 20;
+export const PRODUCT_SKU_MIN_PRICE = 10;
+export const PRODUCT_SKU_MAX_PRICE = 3000;
+export const PRODUCT_SKU_FILE_MAX_SIZE = 5 * 1024 * 1024;
+export const PRODUCT_SKU_FILE_MAX_LENGTH = 4;
+export const PRODUCT_SKU_FILE_MIME_TYPES: z.util.MimeTypes[] = [
+	"image/png",
+	"image/jpeg",
+	"image/webp",
+];
+export const PRODUCT_SKU_MIN_SIZE = 30;
+export const PRODUCT_SKU_MAX_SIZE = 50;

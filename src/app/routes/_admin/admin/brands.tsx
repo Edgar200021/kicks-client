@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { paths } from "@/config/paths.ts";
-
-import { getAllBrandsInputSchema } from "@/features/admin/brand/schemas/get-all-brands.schema.ts";
 import { Breadcrumb } from "@/common/components/ui/breadcrumb";
-import { CreateUpdateBrandForm } from "@/features/admin/brand/components/create-update-brand-form.tsx";
 import { Button } from "@/common/components/ui/button/button.tsx";
+import { paths } from "@/config/paths.ts";
 import { BrandsFilters } from "@/features/admin/brand/components/brands-filters.tsx";
 import { BrandsWrapper } from "@/features/admin/brand/components/brands-wrapper.tsx";
+import { CreateUpdateBrandForm } from "@/features/admin/brand/components/create-update-brand-form.tsx";
+import { getAllBrandsInputSchema } from "@/features/admin/brand/schemas/get-all-brands.schema.ts";
 
 export const Route = createFileRoute(`/_admin${paths.admin.brands}`)({
 	component: RouteComponent,

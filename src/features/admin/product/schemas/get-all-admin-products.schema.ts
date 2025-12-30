@@ -1,10 +1,10 @@
 import z from "zod";
+import { ProductGender } from "@/common/types/api.ts";
 import {
 	GET_ALL_ADMIN_PRODUCTS_MAX_LIMIT,
 	GET_ALL_ADMIN_PRODUCTS_SEARCH_MAX_LENGTH,
 	GET_ALL_ADMIN_PRODUCTS_TAGS_MAX_LENGTH,
 } from "@/features/admin/product/const/zod.ts";
-import { ProductGender } from "@/common/types/api.ts";
 
 export const getAllAdminProductsInputSchema = z
 	.object({

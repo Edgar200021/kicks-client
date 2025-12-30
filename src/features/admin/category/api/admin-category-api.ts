@@ -1,7 +1,6 @@
+import { endpoints } from "@/config/endpoints";
 import { api } from "@/lib/api";
 import type { RootState } from "@/store/store";
-import type { UUID } from "@/common/types/common";
-import { endpoints } from "@/config/endpoints";
 import type {
 	CreateCategoryRequest,
 	CreateCategoryResponse,

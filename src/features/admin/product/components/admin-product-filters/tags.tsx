@@ -6,21 +6,28 @@ import {
 	MultiSelectTrigger,
 	MultiSelectValue,
 } from "@/common/components/ui/multi-select/multi-select.tsx";
-import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
+	type ProductFiltersTarget,
 } from "@/features/admin/product/store/admin-product-slice.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 
-export const AdminProductFiltersTags = () => {
+interface Props {
+	target: ProductFiltersTarget;
+}
+
+export const AdminProductFiltersTags = ({ target }: Props) => {
 	const serverFilters = useAppSelector(
 		adminProductSelectors.getFiltersFromServer,
 	);
-	const tags = useAppSelector(adminProductSelectors.getLazyFiltersTags);
+	const tags = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersTags(state, target),
+	);
 
 	const dispatch = useAppDispatch();
 
-	if (!!serverFilters.tags.length) return null;
+	if (!serverFilters || !serverFilters.tags.length) return null;
 
 	return (
 		<MultiSelect
@@ -30,7 +37,12 @@ export const AdminProductFiltersTags = () => {
 				dispatch(
 					adminProductActions.setFilters({
 						type: "lazy",
-						filters: { tags: val.length === 0 ? undefined : val },
+						filters: {
+							target,
+							data: {
+								tags: val.length === 0 ? undefined : val,
+							},
+						},
 					}),
 				)
 			}

@@ -1,5 +1,5 @@
-import { createProductInputSchema } from "@/features/admin/product/schemas/create-product.schema.ts";
 import z from "zod";
+import { createProductInputSchema } from "@/features/admin/product/schemas/create-product.schema.ts";
 
 export const updateProductInputSchema = createProductInputSchema
 	.partial()

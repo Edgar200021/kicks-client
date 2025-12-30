@@ -1,11 +1,11 @@
 import z from "zod";
+import { ProductGender } from "@/common/types/api.ts";
 import {
 	PRODUCT_DESCRIPTION_MAX_LENGTH,
 	PRODUCT_DESCRIPTION_MIN_LENGTH,
 	PRODUCT_TITLE_MAX_LENGTH,
 	PRODUCT_TITLE_MIN_LENGTH,
 } from "@/features/admin/product/const/zod.js";
-import { ProductGender } from "@/common/types/api.ts";
 
 export const createProductInputSchema = z.object({
 	title: z

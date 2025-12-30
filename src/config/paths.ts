@@ -6,7 +6,9 @@ export const paths = {
 		users: "/admin/users",
 		products: {
 			root: "/admin/products",
+			detail: `/admin/products/$id`,
 			sku: "/admin/products/sku",
+			skuDetail: "/admin/products/sku/$id",
 		},
 		orders: "/admin/orders",
 		categories: "/admin/categories",

@@ -7,8 +7,8 @@ import {
 } from "@/common/components/ui/dropdown-menu/dropdown-menu";
 import type { Category } from "@/common/types/api";
 import { cn } from "@/common/utils/cn";
-import { useRemoveCategory } from "../hooks/use-remove-category";
 import { CreateUpdateCategoryForm } from "@/features/admin/category/components/create-update-category-form.tsx";
+import { useRemoveCategory } from "../hooks/use-remove-category";
 
 interface Props {
 	className?: string;

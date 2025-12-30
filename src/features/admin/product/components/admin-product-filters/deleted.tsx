@@ -1,9 +1,4 @@
 import { Label } from "@/common/components/ui/label/label.tsx";
-import { useAppDispatch, useAppSelector } from "@/store/store.ts";
-import {
-	adminProductActions,
-	adminProductSelectors,
-} from "@/features/admin/product/store/admin-product-slice.ts";
 import {
 	Select,
 	SelectContent,
@@ -11,9 +6,21 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/common/components/ui/select/select.tsx";
+import {
+	adminProductActions,
+	adminProductSelectors,
+	type ProductFiltersTarget,
+} from "@/features/admin/product/store/admin-product-slice.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 
-export const AdminProductFiltersDeleted = () => {
-	const isDeleted = useAppSelector(adminProductSelectors.getLazyFiltersSearch);
+interface Props {
+	target: ProductFiltersTarget;
+}
+
+export const AdminProductFiltersDeleted = ({ target }: Props) => {
+	const isDeleted = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersIsDeleted(state, target),
+	);
 	const dispatch = useAppDispatch();
 
 	return (
@@ -26,7 +33,10 @@ export const AdminProductFiltersDeleted = () => {
 						adminProductActions.setFilters({
 							type: "lazy",
 							filters: {
-								isDeleted: value === "all" ? undefined : value === "true",
+								target,
+								data: {
+									isDeleted: value === "all" ? undefined : value === "true",
+								},
 							},
 						}),
 					)

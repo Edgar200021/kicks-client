@@ -1,9 +1,9 @@
 import { SearchIcon, ShoppingCart, UserRound } from "lucide-react";
 import { AppLink } from "@/common/components/ui/link/link";
-import { globalSelectors } from "@/store/slice";
-import { useAppSelector } from "@/store/store";
 import { cn } from "@/common/utils/cn";
 import { paths } from "@/config/paths";
+import { globalSelectors } from "@/store/slice";
+import { useAppSelector } from "@/store/store";
 
 interface Props {
 	className?: string;

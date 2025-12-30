@@ -1,20 +1,27 @@
 import { Label } from "@/common/components/ui/label/label.tsx";
 import {
-	adminProductActions,
-	adminProductSelectors,
-} from "@/features/admin/product/store/admin-product-slice.ts";
-import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
 } from "@/common/components/ui/select/select.tsx";
-import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 import { ProductGender } from "@/common/types/api.ts";
+import {
+	adminProductActions,
+	adminProductSelectors,
+	type ProductFiltersTarget,
+} from "@/features/admin/product/store/admin-product-slice.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 
-export const AdminProductFiltersGender = () => {
-	const gender = useAppSelector(adminProductSelectors.getLazyFiltersSearch);
+interface Props {
+	target: ProductFiltersTarget;
+}
+
+export const AdminProductFiltersGender = ({ target }: Props) => {
+	const gender = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersGender(state, target),
+	);
 	const dispatch = useAppDispatch();
 
 	return (
@@ -27,7 +34,11 @@ export const AdminProductFiltersGender = () => {
 						adminProductActions.setFilters({
 							type: "lazy",
 							filters: {
-								gender: value === "all" ? undefined : (value as ProductGender),
+								target,
+								data: {
+									gender:
+										value === "all" ? undefined : (value as ProductGender),
+								},
 							},
 						}),
 					)

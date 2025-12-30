@@ -1,4 +1,4 @@
-import {Label} from "@/common/components/ui/label/label.tsx";
+import { Label } from "@/common/components/ui/label/label.tsx";
 import {
 	Select,
 	SelectContent,
@@ -6,17 +6,24 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/common/components/ui/select/select.tsx";
-import {useAppDispatch, useAppSelector} from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
+	type ProductFiltersTarget,
 } from "@/features/admin/product/store/admin-product-slice.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 
-export const AdminProductFiltersCategory = () => {
+interface Props {
+	target: ProductFiltersTarget;
+}
+
+export const AdminProductFiltersCategory = ({ target }: Props) => {
 	const serverFilters = useAppSelector(
 		adminProductSelectors.getFiltersFromServer,
 	);
-	const categoryId = useAppSelector(adminProductSelectors.getLazyFiltersCategoryId);
+	const categoryId = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersCategoryId(state, target),
+	);
 
 	const dispatch = useAppDispatch();
 
@@ -32,7 +39,10 @@ export const AdminProductFiltersCategory = () => {
 						adminProductActions.setFilters({
 							type: "lazy",
 							filters: {
-								categoryId: value === "all" ? undefined : value,
+								target,
+								data: {
+									categoryId: value === "all" ? undefined : value,
+								},
 							},
 						}),
 					)
@@ -45,10 +55,7 @@ export const AdminProductFiltersCategory = () => {
 					<SelectItem value="all">All</SelectItem>
 					{serverFilters.availableCategories.map((c) => {
 						return (
-							<SelectItem
-								key={c.id}
-								value={c.id}
-							>
+							<SelectItem key={c.id} value={c.id}>
 								{c.name}
 							</SelectItem>
 						);

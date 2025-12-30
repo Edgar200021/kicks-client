@@ -7,14 +7,21 @@ import {
 	SelectValue,
 } from "@/common/components/ui/select/select.tsx";
 import { GET_ALL_ADMIN_PRODUCTS_MAX_LIMIT } from "@/features/admin/product/const/zod.ts";
-import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
+	type ProductFiltersTarget,
 } from "@/features/admin/product/store/admin-product-slice.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 
-export const AdminProductsFiltersLimit = () => {
-	const limit = useAppSelector(adminProductSelectors.getLazyFiltersLimit);
+interface Props {
+	target: ProductFiltersTarget;
+}
+
+export const AdminProductsFiltersLimit = ({ target }: Props) => {
+	const limit = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersLimit(state, target),
+	);
 	const dispatch = useAppDispatch();
 
 	return (
@@ -26,7 +33,12 @@ export const AdminProductsFiltersLimit = () => {
 					dispatch(
 						adminProductActions.setFilters({
 							type: "lazy",
-							filters: { limit: Number(value) },
+							filters: {
+								target,
+								data: {
+									limit: Number(value),
+								},
+							},
 						}),
 					)
 				}

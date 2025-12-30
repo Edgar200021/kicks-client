@@ -1,23 +1,30 @@
+import { ChevronDownIcon } from "lucide-react";
+import { Button } from "@/common/components/ui/button/button.tsx";
+import { Calendar } from "@/common/components/ui/calendar/calendar.tsx";
 import { Label } from "@/common/components/ui/label/label.tsx";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/common/components/ui/popover/popover.tsx";
-import { Button } from "@/common/components/ui/button/button.tsx";
-import { ChevronDownIcon } from "lucide-react";
-import { Calendar } from "@/common/components/ui/calendar/calendar.tsx";
-import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 import {
 	adminProductActions,
 	adminProductSelectors,
+	type ProductFiltersTarget,
 } from "@/features/admin/product/store/admin-product-slice.ts";
+import { useAppDispatch, useAppSelector } from "@/store/store.ts";
 
-export const AdminProductFiltersDate = () => {
-	const startDate = useAppSelector(
-		adminProductSelectors.getLazyFiltersStartDate,
+interface Props {
+	target: ProductFiltersTarget;
+}
+
+export const AdminProductFiltersDate = ({ target }: Props) => {
+	const startDate = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersStartDate(state, target),
 	);
-	const endDate = useAppSelector(adminProductSelectors.getLazyFiltersEndDate);
+	const endDate = useAppSelector((state) =>
+		adminProductSelectors.getLazyFiltersEndDate(state, target),
+	);
 
 	const dispatch = useAppDispatch();
 
@@ -45,7 +52,12 @@ export const AdminProductFiltersDate = () => {
 								dispatch(
 									adminProductActions.setFilters({
 										type: "lazy",
-										filters: { startDate: date },
+										filters: {
+											target,
+											data: {
+												startDate: date,
+											},
+										},
 									}),
 								)
 							}
@@ -77,7 +89,12 @@ export const AdminProductFiltersDate = () => {
 								dispatch(
 									adminProductActions.setFilters({
 										type: "lazy",
-										filters: { endDate: date },
+										filters: {
+											target,
+											data: {
+												endDate: date,
+											},
+										},
 									}),
 								)
 							}

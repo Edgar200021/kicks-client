@@ -1,11 +1,11 @@
 import { useNavigate } from "@tanstack/react-router";
 import { Pagination } from "@/common/components/ui/pagination/pagination";
-import { useAppDispatch, useAppSelector } from "@/store/store";
 import { paths } from "@/config/paths";
 import {
 	userActions,
 	userSelectors,
 } from "@/features/admin/user/store/user-slice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 
 interface Props {
 	className?: string;

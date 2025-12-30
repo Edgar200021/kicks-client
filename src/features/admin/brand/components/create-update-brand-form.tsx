@@ -1,5 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	type Dispatch,
+	type ReactNode,
+	type SetStateAction,
+	useState,
+} from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { Button } from "@/common/components/ui/button/button.tsx";
 import {
 	Dialog,
 	DialogContent,
@@ -9,26 +16,18 @@ import {
 } from "@/common/components/ui/dialog/dialog";
 import { FormInput } from "@/common/components/ui/form/form-input.tsx";
 import { useHandleError } from "@/common/hooks/use-handler-error.ts";
-
-import { Button } from "@/common/components/ui/button/button.tsx";
 import {
-	type Dispatch,
-	type ReactNode,
-	type SetStateAction,
-	useState,
-} from "react";
-import {
-	type UpdateBrandInput,
-	updateBrandInputSchema,
-} from "@/features/admin/brand/schemas/update-brand.schema.ts";
+	useCreateBrandMutation,
+	useUpdateBrandMutation,
+} from "@/features/admin/brand/api/admin-brand-api.ts";
 import {
 	type CreateBrandInput,
 	createBrandInputSchema,
 } from "@/features/admin/brand/schemas/create-brand.schema.ts";
 import {
-	useCreateBrandMutation,
-	useUpdateBrandMutation,
-} from "@/features/admin/brand/api/admin-brand-api.ts";
+	type UpdateBrandInput,
+	updateBrandInputSchema,
+} from "@/features/admin/brand/schemas/update-brand.schema.ts";
 
 interface Props {
 	className?: string;

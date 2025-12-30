@@ -1,1 +1,5 @@
-export const TAG_TYPES = ["users", "adminProducts"] as const;
+export const TAG_TYPES = [
+	"users",
+	"adminProducts",
+	"adminProductsSku",
+] as const;

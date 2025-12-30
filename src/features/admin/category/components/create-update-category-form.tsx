@@ -1,5 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	type Dispatch,
+	type ReactNode,
+	type SetStateAction,
+	useState,
+} from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { Button } from "@/common/components/ui/button/button.tsx";
 import {
 	Dialog,
 	DialogContent,
@@ -21,13 +28,6 @@ import {
 	type UpdateCategoryInput,
 	updateCategoryInputSchema,
 } from "@/features/admin/category/schemas/update-category.schema.ts";
-import { Button } from "@/common/components/ui/button/button.tsx";
-import {
-	type Dispatch,
-	type ReactNode,
-	type SetStateAction,
-	useState,
-} from "react";
 
 interface Props {
 	className?: string;

@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumb } from "@/common/components/ui/breadcrumb";
+import { Button } from "@/common/components/ui/button/button.tsx";
 import { paths } from "@/config/paths.ts";
 import { CategoriesFilters } from "@/features/admin/category/components/categories-filters.tsx";
 import { CategoriesWrapper } from "@/features/admin/category/components/categories-wrapper.tsx";
-import { getAllCategoriesInputSchema } from "@/features/admin/category/schemas/get-all-categories.schema.ts";
 import { CreateUpdateCategoryForm } from "@/features/admin/category/components/create-update-category-form.tsx";
-import { Button } from "@/common/components/ui/button/button.tsx";
+import { getAllCategoriesInputSchema } from "@/features/admin/category/schemas/get-all-categories.schema.ts";
 
 export const Route = createFileRoute(`/_admin${paths.admin.categories}`)({
 	component: RouteComponent,

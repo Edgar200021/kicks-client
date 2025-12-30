@@ -1,13 +1,13 @@
-import {toast} from "sonner";
-import {useHandleError} from "@/common/hooks/use-handler-error";
-import type {AdminProduct} from "@/common/types/api";
-import {validateSchema} from "@/common/utils/schema";
-import {useRemoveProductMutation} from "@/features/admin/product/api/admin-product-api.ts";
-import {removeProductInputSchema} from "@/features/admin/product/schemas/remove-product.schema.ts";
+import { toast } from "sonner";
+import { useHandleError } from "@/common/hooks/use-handler-error";
+import type { AdminProduct } from "@/common/types/api";
+import { validateSchema } from "@/common/utils/schema";
+import { useRemoveProductMutation } from "@/features/admin/product/api/admin-product-api.ts";
+import { removeProductInputSchema } from "@/features/admin/product/schemas/remove-product.schema.ts";
 
 export const useRemoveProduct = (productId: AdminProduct["id"]) => {
-	const [removeProduct, {isLoading, error}] = useRemoveProductMutation();
-	const {handleError} = useHandleError(error);
+	const [removeProduct, { isLoading, error }] = useRemoveProductMutation();
+	const { handleError } = useHandleError(error);
 
 	const handleRemove = () => {
 		toast(`Are you sure you want to remove the product with ID ${productId}?`, {

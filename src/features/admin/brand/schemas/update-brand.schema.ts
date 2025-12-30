@@ -1,5 +1,5 @@
 import z from "zod";
-import { BRAND_NAME_MIN_LENGTH, BRAND_NAME_MAX_LENGTH } from "../const/zod";
+import { BRAND_NAME_MAX_LENGTH, BRAND_NAME_MIN_LENGTH } from "../const/zod";
 
 export const updateBrandInputSchema = z.object({
 	id: z.uuid().nonempty(),

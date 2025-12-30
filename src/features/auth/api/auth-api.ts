@@ -1,5 +1,3 @@
-import { api } from "@/lib/api";
-import { globalActions } from "@/store/slice";
 import { endpoints } from "@/config/endpoints";
 import type {
 	ForgotPasswordRequest,
@@ -17,6 +15,8 @@ import type {
 	VerifyAccountRequest,
 	VerifyAccountResponse,
 } from "@/features/auth/types/api";
+import { api } from "@/lib/api";
+import { globalActions } from "@/store/slice";
 
 export const authApi = api.injectEndpoints({
 	endpoints: (builder) => ({

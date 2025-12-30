@@ -1,16 +1,15 @@
 import { useEffect } from "react";
-import { Spinner } from "@/common/components/ui/spinner/spinner";
-import { useHandleError } from "@/common/hooks/use-handler-error";
-import { useAppSelector } from "@/store/store";
-import { cn } from "@/common/utils/cn";
-import { useLazyGetAllBrandsQuery } from "../api/admin-brand-api.ts";
-
-import { brandSelectors } from "../store/brand-slice.ts";
-import { BrandsTable } from "./brands-table.tsx";
-import { getAllBrandsInputSchema } from "@/features/admin/brand/schemas/get-all-brands.schema.ts";
 import { toast } from "sonner";
 import z from "zod";
+import { Spinner } from "@/common/components/ui/spinner/spinner";
+import { useHandleError } from "@/common/hooks/use-handler-error";
+import { cn } from "@/common/utils/cn";
 import { AdminBrand } from "@/features/admin/brand/components/brand.tsx";
+import { getAllBrandsInputSchema } from "@/features/admin/brand/schemas/get-all-brands.schema.ts";
+import { useAppSelector } from "@/store/store";
+import { useLazyGetAllBrandsQuery } from "../api/admin-brand-api.ts";
+import { brandSelectors } from "../store/brand-slice.ts";
+import { BrandsTable } from "./brands-table.tsx";
 
 interface Props {
 	className?: string;

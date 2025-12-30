@@ -26,10 +26,10 @@ import {
 } from "@/common/components/ui/select/select";
 import { UserGender } from "@/common/types/api";
 import { cn } from "@/common/utils/cn";
+import { useSetAdminFilters } from "@/features/admin/hooks/use-set-admin-filters.ts";
 import type { GetAllUsersInput } from "@/features/admin/user/schemas/get-all-users.schema";
 import { userActions } from "@/features/admin/user/store/user-slice";
 import { GET_ALL_USERS_MAX_LIMIT } from "../const/zod";
-import { useSetAdminFilters } from "@/features/admin/hooks/use-set-admin-filters.ts";
 
 interface Props {
 	className?: string;

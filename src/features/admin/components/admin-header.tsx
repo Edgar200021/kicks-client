@@ -19,7 +19,7 @@ import { AppLink } from "@/common/components/ui/link/link";
 import { useGetUser } from "@/common/hooks/use-get-user";
 import { useLogout } from "@/common/hooks/use-logout";
 import { cn } from "@/common/utils/cn";
-import {NavbarWrapper} from "@/features/admin/components/NavbarWrapper.tsx";
+import { NavbarWrapper } from "@/features/admin/components/navbar-wrapper.tsx";
 
 interface Props {
 	className?: string;
@@ -37,7 +37,7 @@ export const AdminHeader = ({ className }: Props) => {
 			)}
 		>
 			<div className="max-w-[2500px] px-5 flex items-center justify-between">
-				<NavbarWrapper/>
+				<NavbarWrapper />
 				<div className="ml-auto flex items-center gap-x-8">
 					<SearchIcon size={20} className="text-primary-150 cursor-pointer" />
 					<Bell className="cursor-pointer fill-blue stroke-blue" size={20} />

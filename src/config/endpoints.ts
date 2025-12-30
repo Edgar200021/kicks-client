@@ -28,8 +28,11 @@ export const endpoints = {
 		},
 		products: {
 			getAll: "/admin/product",
+			getAllSku: "/admin/product/sku",
+			getOne: (id: string) => `/admin/product/${id}`,
 			getFilters: "/admin/product/filters",
 			create: "/admin/product",
+			createSku: (id: string) => `/admin/product/${id}/sku`,
 			remove: (id: string) => `/admin/product/${id}`,
 			update: (id: string) => `/admin/product/${id}`,
 		},

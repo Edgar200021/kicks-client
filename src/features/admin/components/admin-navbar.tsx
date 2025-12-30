@@ -6,7 +6,6 @@ import { paths } from "@/config/paths";
 import sprites from "@/features/admin/assets/icons/sprites.svg";
 import type { AdminPath } from "@/features/admin/types/path.ts";
 
-
 const links: {
 	path: AdminPath;
 	icon: ReactNode;
@@ -71,12 +70,10 @@ const links: {
 
 interface Props {
 	className?: string;
-	onClick: () => void
+	onClick?: () => void;
 }
 
-
 export const AdminNavbar = ({ className, onClick }: Props) => {
-
 	return (
 		<div
 			className={cn(

@@ -1,20 +1,26 @@
-import {useState} from 'react'
-import {Drawer, DrawerContent, DrawerTrigger} from "@/common/components/ui/drawer/drawer.tsx";
-import {Button} from "@/common/components/ui/button/button.tsx";
-import {AdminNavbar} from "@/features/admin/components/admin-navbar.tsx";
-import {cn} from "@/common/utils/cn.ts";
+import { useState } from "react";
+import { Button } from "@/common/components/ui/button/button.tsx";
+import {
+	Drawer,
+	DrawerContent,
+	DrawerTrigger,
+} from "@/common/components/ui/drawer/drawer.tsx";
+import { cn } from "@/common/utils/cn.ts";
+import { AdminNavbar } from "@/features/admin/components/admin-navbar.tsx";
 
 type Props = {
-	className?: string
-	drawerClassname?: string
-}
+	className?: string;
+	drawerClassname?: string;
+};
 
-export const NavbarWrapper = ({className, drawerClassname}: Props) => {
-	const [open, setOpen] = useState(false)
+export const NavbarWrapper = ({ className, drawerClassname }: Props) => {
+	const [open, setOpen] = useState(false);
 
 	return (
 		<>
-			<AdminNavbar className={cn("hidden xl:block fixed top-0 left-0", className)} />
+			<AdminNavbar
+				className={cn("hidden xl:block fixed top-0 left-0", className)}
+			/>
 			<div className={cn("xl:hidden", drawerClassname)}>
 				<Drawer open={open} onOpenChange={setOpen} direction="left">
 					<DrawerTrigger asChild>
@@ -27,11 +33,13 @@ export const NavbarWrapper = ({className, drawerClassname}: Props) => {
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent className="bg-fa-white">
-						<AdminNavbar onClick={() => setOpen(false)} className="border-0 max-w-full" />
+						<AdminNavbar
+							onClick={() => setOpen(false)}
+							className="border-0 max-w-full"
+						/>
 					</DrawerContent>
 				</Drawer>
 			</div>
 		</>
-
-	)
-}
+	);
+};

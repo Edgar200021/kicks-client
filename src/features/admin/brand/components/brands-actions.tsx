@@ -7,8 +7,8 @@ import {
 } from "@/common/components/ui/dropdown-menu/dropdown-menu";
 import type { Brand } from "@/common/types/api";
 import { cn } from "@/common/utils/cn";
-import { useRemoveBrand } from "../hooks/use-remove-brand.ts";
 import { CreateUpdateBrandForm } from "@/features/admin/brand/components/create-update-brand-form.tsx";
+import { useRemoveBrand } from "../hooks/use-remove-brand.ts";
 
 interface Props {
 	className?: string;

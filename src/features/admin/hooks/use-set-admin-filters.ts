@@ -1,38 +1,42 @@
+import { useNavigate } from "@tanstack/react-router";
+import { useCallback, useEffect, useMemo } from "react";
+import type { UnknownAction } from "redux";
+import { paths } from "@/config/paths.ts";
+import type { GetAllBrandsInput } from "@/features/admin/brand/schemas/get-all-brands.schema.ts";
+import {
+	brandActions,
+	brandSelectors,
+} from "@/features/admin/brand/store/brand-slice.ts";
+import type { GetAllCategoriesInput } from "@/features/admin/category/schemas/get-all-categories.schema.ts";
+import {
+	categoryActions,
+	categorySelectors,
+} from "@/features/admin/category/store/category-slice.ts";
+import type { GetAllAdminProductsInput } from "@/features/admin/product/schemas/get-all-admin-products.schema.ts";
+import type { GetAllAdminProductsSkuInput } from "@/features/admin/product/schemas/get-all-admin-products-sku.schema.ts";
+import { adminProductActions } from "@/features/admin/product/store/admin-product-slice.ts";
+import type { AdminPath } from "@/features/admin/types/path.ts";
+import type { GetAllUsersInput } from "@/features/admin/user/schemas/get-all-users.schema.ts";
+import {
+	userActions,
+	userSelectors,
+} from "@/features/admin/user/store/user-slice.ts";
 import {
 	type RootState,
 	useAppDispatch,
 	useAppSelector,
 } from "@/store/store.ts";
-import {
-	adminProductActions,
-	adminProductSelectors,
-} from "@/features/admin/product/store/admin-product-slice.ts";
-import { useCallback, useEffect, useMemo } from "react";
-import { useNavigate } from "@tanstack/react-router";
-import {
-	categoryActions,
-	categorySelectors,
-} from "@/features/admin/category/store/category-slice.ts";
-import {
-	brandActions,
-	brandSelectors,
-} from "@/features/admin/brand/store/brand-slice.ts";
-import {
-	userActions,
-	userSelectors,
-} from "@/features/admin/user/store/user-slice.ts";
-import type { GetAllAdminProductsInput } from "@/features/admin/product/schemas/get-all-admin-products.schema.ts";
-import type { GetAllBrandsInput } from "@/features/admin/brand/schemas/get-all-brands.schema.ts";
-import type { GetAllCategoriesInput } from "@/features/admin/category/schemas/get-all-categories.schema.ts";
-import type { GetAllUsersInput } from "@/features/admin/user/schemas/get-all-users.schema.ts";
-import { paths } from "@/config/paths.ts";
-import type { UnknownAction } from "redux";
-import type { AdminPath } from "@/features/admin/types/path.ts";
 
-type AdminFilterType = "products" | "brands" | "categories" | "users";
+type AdminFilterType =
+	| "products"
+	| "productsSku"
+	| "brands"
+	| "categories"
+	| "users";
 
 type FilterMap = {
 	products: GetAllAdminProductsInput;
+	productsSku: GetAllAdminProductsSkuInput;
 	brands: GetAllBrandsInput;
 	categories: GetAllCategoriesInput;
 	users: GetAllUsersInput;
@@ -49,7 +53,7 @@ type Config = {
 				type: "regular" | "lazy";
 				filters: FilterMap[K];
 			}) => UnknownAction;
-			clearFilters: (kind: "regular" | "lazy") => UnknownAction;
+			clearFilters: (type: "regular" | "lazy") => UnknownAction;
 		};
 		path: AdminPath;
 	};
@@ -57,9 +61,42 @@ type Config = {
 
 const adminFiltersConfig: Config = {
 	products: {
-		selectors: adminProductSelectors,
-		actions: adminProductActions,
+		selectors: {
+			getFilters: (state) => state["admin-product"].filters,
+			getLazyFilters: (state) => state["admin-product"].lazyFilters,
+		},
+		actions: {
+			setFilters: ({ type, filters }) =>
+				adminProductActions.setFilters({
+					type: type,
+					filters: {
+						target: "product",
+						data: filters,
+					},
+				}) as UnknownAction,
+			clearFilters: (type) =>
+				adminProductActions.clearFilters({ type, target: "product" }),
+		},
 		path: paths.admin.products.root,
+	},
+	productsSku: {
+		selectors: {
+			getFilters: (state) => state["admin-product"].skuFilters,
+			getLazyFilters: (state) => state["admin-product"].lazySkuFilters,
+		},
+		actions: {
+			setFilters: ({ type, filters }) =>
+				adminProductActions.setFilters({
+					type: type,
+					filters: {
+						target: "sku",
+						data: filters,
+					},
+				}) as UnknownAction,
+			clearFilters: (type) =>
+				adminProductActions.clearFilters({ type, target: "sku" }),
+		},
+		path: paths.admin.products.sku,
 	},
 	brands: {
 		selectors: brandSelectors,

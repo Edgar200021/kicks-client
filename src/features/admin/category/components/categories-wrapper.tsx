@@ -3,13 +3,13 @@ import { toast } from "sonner";
 import z from "zod";
 import { Spinner } from "@/common/components/ui/spinner/spinner";
 import { useHandleError } from "@/common/hooks/use-handler-error";
-import { useAppSelector } from "@/store/store";
 import { cn } from "@/common/utils/cn";
+import { AdminCategory } from "@/features/admin/category/components/category.tsx";
+import { useAppSelector } from "@/store/store";
 import { useLazyGetAllCategoriesQuery } from "../api/admin-category-api";
 import { getAllCategoriesInputSchema } from "../schemas/get-all-categories.schema";
 import { categorySelectors } from "../store/category-slice";
 import { CategoriesTable } from "./categories-table";
-import { AdminCategory } from "@/features/admin/category/components/category.tsx";
 
 interface Props {
 	className?: string;

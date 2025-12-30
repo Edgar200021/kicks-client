@@ -1,18 +1,22 @@
+import type { Dispatch, SetStateAction } from "react";
 import { Button } from "@/common/components/ui/button/button.tsx";
 import {
 	DrawerClose,
 	DrawerFooter,
 } from "@/common/components/ui/drawer/drawer.tsx";
 import { useSetAdminFilters } from "@/features/admin/hooks/use-set-admin-filters.ts";
-import type { Dispatch, SetStateAction } from "react";
+import type { ProductFiltersTarget } from "@/features/admin/product/store/admin-product-slice.ts";
 
 export const AdminProductFiltersButtons = ({
 	setOpen,
+	target,
 }: {
 	setOpen: Dispatch<SetStateAction<boolean>>;
+	target: ProductFiltersTarget;
 }) => {
-	const { lazyFilters, handleApply, handleReset, isEqual } =
-		useSetAdminFilters("products");
+	const { lazyFilters, handleApply, handleReset, isEqual } = useSetAdminFilters(
+		target === "product" ? "products" : "productsSku",
+	);
 
 	return (
 		<DrawerFooter>
@@ -38,7 +42,9 @@ export const AdminProductFiltersButtons = ({
 			</div>
 
 			<DrawerClose asChild>
-				<Button variant="outline">Close</Button>
+				<Button onClick={() => setOpen(false)} variant="outline">
+					Close
+				</Button>
 			</DrawerClose>
 		</DrawerFooter>
 	);
