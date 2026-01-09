@@ -30,11 +30,15 @@ export const endpoints = {
 			getAll: "/admin/product",
 			getAllSku: "/admin/product/sku",
 			getOne: (id: string) => `/admin/product/${id}`,
+			getOneSku: (id: string) => `/admin/product/sku/${id}`,
 			getFilters: "/admin/product/filters",
 			create: "/admin/product",
 			createSku: (id: string) => `/admin/product/${id}/sku`,
-			remove: (id: string) => `/admin/product/${id}`,
 			update: (id: string) => `/admin/product/${id}`,
+			updateSku: (id: string) => `/admin/product/sku/${id}`,
+			remove: (id: string) => `/admin/product/${id}`,
+			removeSku: (id: string) => `/admin/product/sku/${id}`,
+
 		},
 	},
 } as const;

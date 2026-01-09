@@ -1,11 +1,11 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import type {AdminProduct, AdminProductFilters, AdminProductSku,} from "@/common/types/api.ts";
 import type {
-	AdminProduct,
-	AdminProductFilters,
-	AdminProductSku,
-} from "@/common/types/api.ts";
-import type { GetAllAdminProductsInput } from "@/features/admin/product/schemas/get-all-admin-products.schema.ts";
-import type { GetAllAdminProductsSkuInput } from "@/features/admin/product/schemas/get-all-admin-products-sku.schema.ts";
+	GetAllAdminProductsInput
+} from "@/features/admin/product/schemas/get-all-admin-products.schema.ts";
+import type {
+	GetAllAdminProductsSkuInput
+} from "@/features/admin/product/schemas/get-all-admin-products-sku.schema.ts";
 
 type State = {
 	filters: GetAllAdminProductsInput;
@@ -33,18 +33,18 @@ export const adminProductSlice = createSlice({
 		setFilters: (
 			state,
 			{
-				payload: { type, filters },
+				payload: {type, filters},
 			}: PayloadAction<{
 				type: "regular" | "lazy";
 				filters:
 					| {
-							target: Extract<ProductFiltersTarget, "product">;
-							data: GetAllAdminProductsInput;
-					  }
+					target: Extract<ProductFiltersTarget, "product">;
+					data: GetAllAdminProductsInput;
+				}
 					| {
-							target: Extract<ProductFiltersTarget, "sku">;
-							data: GetAllAdminProductsSkuInput;
-					  };
+					target: Extract<ProductFiltersTarget, "sku">;
+					data: GetAllAdminProductsSkuInput;
+				};
 			}>,
 		) => {
 			const key = filters.target === "product" ? "filters" : "skuFilters";
@@ -52,16 +52,16 @@ export const adminProductSlice = createSlice({
 				filters.target === "product" ? "lazyFilters" : "lazySkuFilters";
 
 			if (type === "regular") {
-				state[key] = { ...state[key], ...filters.data };
+				state[key] = {...state[key], ...filters.data};
 			}
 
 			if (type === "lazy")
-				state[lazyKey] = { ...state[lazyKey], ...filters.data };
+				state[lazyKey] = {...state[lazyKey], ...filters.data};
 		},
 
 		setServerFilters: (
 			state,
-			{ payload }: PayloadAction<AdminProductFilters>,
+			{payload}: PayloadAction<AdminProductFilters>,
 		) => {
 			state.filtersFromServer = payload;
 		},
@@ -69,16 +69,16 @@ export const adminProductSlice = createSlice({
 		setSelectedProduct: (
 			state,
 			{
-				payload: { target, data },
+				payload: {target, data},
 			}: PayloadAction<
 				| {
-						target: Extract<ProductFiltersTarget, "product">;
-						data: AdminProduct;
-				  }
+				target: Extract<ProductFiltersTarget, "product">;
+				data: AdminProduct;
+			}
 				| {
-						target: Extract<ProductFiltersTarget, "sku">;
-						data: AdminProductSku;
-				  }
+				target: Extract<ProductFiltersTarget, "sku">;
+				data: AdminProductSku;
+			}
 			>,
 		) => {
 			if (target === "product") {
@@ -92,7 +92,7 @@ export const adminProductSlice = createSlice({
 		clearFilters: (
 			state,
 			{
-				payload: { type, target },
+				payload: {type, target},
 			}: PayloadAction<{
 				type: "regular" | "lazy";
 				target: ProductFiltersTarget;
@@ -107,7 +107,7 @@ export const adminProductSlice = createSlice({
 		},
 	},
 	selectors: {
-		getSelectedProduct: (state) => state.selectedProduct,
+		getSelectedProduct: (state, target: ProductFiltersTarget) => target === "product" ? state.selectedProduct : state.selectedProductSku,
 
 		getFiltersFromServer: (state) => state.filtersFromServer,
 		getFilters: (state, target: ProductFiltersTarget) =>

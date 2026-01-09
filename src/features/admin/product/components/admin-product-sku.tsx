@@ -1,21 +1,32 @@
-import { ArrowUp } from "lucide-react";
-import type { AdminProductSku as TAdminProductSku } from "@/common/types/api.ts";
-import { cn } from "@/common/utils/cn.ts";
-import { AdminProductSkuActions } from "@/features/admin/product/components/admin-product-sku-actions.tsx";
+import {ArrowUp} from "lucide-react";
+import type {AdminProductSku as TAdminProductSku} from "@/common/types/api.ts";
+import {cn} from "@/common/utils/cn.ts";
+import {
+	AdminProductSkuActions
+} from "@/features/admin/product/components/admin-product-sku-actions.tsx";
+import {AppLink} from "@/common/components/ui/link/link.tsx";
+import {paths} from "@/config/paths.ts";
 
 interface Props {
 	className?: string;
 	productSku: TAdminProductSku;
 }
 
-export const AdminProductSku = ({ className, productSku }: Props) => {
+export const AdminProductSku = ({className, productSku}: Props) => {
 	return (
 		<div
 			className={cn(
-				"max-w-[400px] w-full bg-fa-white rounded-2xl p-4 flex flex-col gap-y-3",
+				"max-w-[400px] w-full bg-fa-white rounded-2xl p-4 flex flex-col gap-y-3 relative",
 				className,
 			)}
 		>
+			<AppLink
+				to={paths.admin.products.skuDetail}
+				params={{
+					id: productSku.id
+				}}
+				className="absolute top-0 left-0 w-full h-full"
+			/>
 			<div className="flex justify-between gap-x-5 items-start">
 				<div className="flex gap-x-4">
 					<img
@@ -37,7 +48,7 @@ export const AdminProductSku = ({ className, productSku }: Props) => {
 								<>
 									<span className="line-through text-black/60">
 										${productSku.price}
-									</span>{" "}
+									</span>
 									<span className="text-red-500">${productSku.salePrice}</span>
 								</>
 							) : (
@@ -46,7 +57,10 @@ export const AdminProductSku = ({ className, productSku }: Props) => {
 						</span>
 					</div>
 				</div>
-				<AdminProductSkuActions adminProductSku={productSku} />
+				<AdminProductSkuActions
+					className="z-10"
+					adminProductSku={productSku}
+				/>
 			</div>
 			<div className="flex flex-col gap-y-4">
 				<span className="font-semibold">Summary</span>
@@ -58,7 +72,10 @@ export const AdminProductSku = ({ className, productSku }: Props) => {
 				<div className="pb-2 border-b-[0.50px] border-b-primary-150/40 flex items-center justify-between gap-x-4">
 					<span>Sales</span>
 					<span className="flex items-center gap-x-1">
-						<ArrowUp className="text-yellow" size={20} />
+						<ArrowUp
+							className="text-yellow"
+							size={20}
+						/>
 						{/*TODO!*/}
 						<span>{productSku.quantity}</span>
 					</span>

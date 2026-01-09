@@ -1,23 +1,20 @@
-import {
-	Link,
-	type LinkProps as RouterLinkProps,
-} from "@tanstack/react-router";
-import type { ReactNode } from "react";
-import { cn } from "@/common/utils/cn";
+import {Link, type LinkProps as RouterLinkProps,} from "@tanstack/react-router";
+import type {ReactNode} from "react";
+import {cn} from "@/common/utils/cn";
 
 export type LinkProps = {
 	className?: string;
-	children: ReactNode;
+	children?: ReactNode;
 	onClick?: () => void;
 } & RouterLinkProps;
 
 export const AppLink = ({
-	className,
-	children,
-	to,
-	onClick,
-	...props
-}: LinkProps) => {
+													className,
+													children,
+													to,
+													onClick,
+													...props
+												}: LinkProps) => {
 	return (
 		<Link
 			onClick={onClick}

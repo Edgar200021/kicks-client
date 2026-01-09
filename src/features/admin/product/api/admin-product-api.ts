@@ -1,7 +1,7 @@
-import { endpoints } from "@/config/endpoints";
-import { adminProductActions } from "@/features/admin/product/store/admin-product-slice.ts";
-import { api } from "@/lib/api";
-import type { RootState } from "@/store/store.ts";
+import {endpoints} from "@/config/endpoints";
+import {adminProductActions} from "@/features/admin/product/store/admin-product-slice.ts";
+import {api} from "@/lib/api";
+import type {RootState} from "@/store/store.ts";
 import type {
 	CreateProductRequest,
 	CreateProductResponse,
@@ -11,15 +11,22 @@ import type {
 	GetAdminProductFiltersResponse,
 	GetAdminProductRequest,
 	GetAdminProductResponse,
+	GetAdminProductSkuRequest,
+	GetAdminProductSkuResponse,
 	GetAllAdminProductsRequest,
 	GetAllAdminProductsResponse,
 	GetAllAdminProductsSkuRequest,
 	GetAllAdminProductsSkuResponse,
 	RemoveProductRequest,
 	RemoveProductResponse,
+	RemoveProductSkuRequest,
+	RemoveProductSkuResponse,
 	UpdateProductRequest,
 	UpdateProductResponse,
+	UpdateProductSkuRequest,
+	UpdateProductSkuResponse,
 } from "../types/api";
+import {buildFormData} from "@/common/utils/form-data.ts";
 
 export const adminProductApi = api.injectEndpoints({
 	endpoints: (builder) => ({
@@ -54,6 +61,18 @@ export const adminProductApi = api.injectEndpoints({
 			}),
 		}),
 
+		getAdminProductSku: builder.query<
+			GetAdminProductSkuResponse,
+			GetAdminProductSkuRequest
+		>({
+			query: (params) => ({
+				url: endpoints.admin.products.getOneSku(params.id),
+			}),
+			providesTags: (_, __, arg) => [
+				{type: 'adminProductSku', id: arg.id}
+			]
+		}),
+
 		getAdminProductFilters: builder.query<
 			GetAdminProductFiltersResponse,
 			GetAdminProductFiltersRequest
@@ -61,8 +80,8 @@ export const adminProductApi = api.injectEndpoints({
 			query: () => ({
 				url: endpoints.admin.products.getFilters,
 			}),
-			async onQueryStarted(_, { dispatch, queryFulfilled }) {
-				const { data } = await queryFulfilled;
+			async onQueryStarted(_, {dispatch, queryFulfilled}) {
+				const {data} = await queryFulfilled;
 				dispatch(adminProductActions.setServerFilters(data.data));
 			},
 		}),
@@ -83,30 +102,12 @@ export const adminProductApi = api.injectEndpoints({
 			CreateProductSkuResponse,
 			CreateProductSkuRequest
 		>({
-			query: (body) => {
-				const formData = Object.entries(body).reduce((acc, [key, value]) => {
-					if (Array.isArray(value)) {
-						for (const val of value) {
-							acc.append(key, val);
-						}
-
-						return acc;
-					}
-
-					//@ts-expect-error
-					acc.append(key, value);
-
-					return acc;
-				}, new FormData());
-
-				console.log(formData);
-
-				return {
-					url: endpoints.admin.products.createSku(body.productId),
-					method: "POST",
-					body: formData,
-				};
-			},
+			query: (body) => ({
+				url: endpoints.admin.products.createSku(body.productId),
+				method:
+					"POST",
+				body: buildFormData(body)
+			}),
 			invalidatesTags: ["adminProductsSku"],
 		}),
 
@@ -114,14 +115,14 @@ export const adminProductApi = api.injectEndpoints({
 			UpdateProductResponse,
 			UpdateProductRequest
 		>({
-			query: ({ id, ...body }) => ({
+			query: ({id, ...body}) => ({
 				url: endpoints.admin.products.update(id),
 				method: "PATCH",
 				body,
 			}),
 			async onQueryStarted(
-				{ id, ...rest },
-				{ dispatch, getState, queryFulfilled },
+				{id, ...rest},
+				{dispatch, getState, queryFulfilled},
 			) {
 				const state = getState() as RootState;
 
@@ -148,8 +149,8 @@ export const adminProductApi = api.injectEndpoints({
 
 							const category = rest.categoryId
 								? filtersFromServer?.categories.find(
-										(c) => c.id === rest.categoryId,
-									)
+									(c) => c.id === rest.categoryId,
+								)
 								: currentProduct.category;
 							const brand = rest.brandId
 								? filtersFromServer?.brands.find((b) => b.id === rest.brandId)
@@ -182,6 +183,21 @@ export const adminProductApi = api.injectEndpoints({
 			},
 		}),
 
+		updateProductSku: builder.mutation<
+			UpdateProductSkuResponse,
+			UpdateProductSkuRequest
+		>({
+			query: ({id, ...body}) => ({
+				url: endpoints.admin.products.updateSku(id),
+				method: "PATCH",
+				body: buildFormData(body),
+			}),
+			invalidatesTags: (_, __, arg) => [
+				{type: 'adminProductSku', id: arg.id},
+				"adminProductsSku"
+			]
+		}),
+
 		removeProduct: builder.mutation<
 			RemoveProductResponse,
 			RemoveProductRequest
@@ -190,7 +206,7 @@ export const adminProductApi = api.injectEndpoints({
 				url: endpoints.admin.products.remove(params.id),
 				method: "DELETE",
 			}),
-			async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
+			async onQueryStarted({id}, {dispatch, getState, queryFulfilled}) {
 				const patchResult = dispatch(
 					adminProductApi.util.updateQueryData(
 						"getAllAdminProducts",
@@ -214,6 +230,33 @@ export const adminProductApi = api.injectEndpoints({
 				}
 			},
 		}),
+
+		removeProductSku: builder.mutation<
+			RemoveProductSkuResponse,
+			RemoveProductSkuRequest
+		>({
+			query: (params) => ({
+				url: endpoints.admin.products.removeSku(params.id),
+				method: "DELETE",
+			}),
+			async onQueryStarted({id}, {dispatch, getState, queryFulfilled}) {
+				const patchResult = dispatch(
+					adminProductApi.util.updateQueryData(
+						"getAllAdminProductsSku",
+						(getState() as RootState)["admin-product"].skuFilters,
+						(draft) => {
+							draft.data.productsSku = draft.data.productsSku.filter(p => p.id !== id)
+						},
+					),
+				);
+
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					patchResult.undo();
+				}
+			},
+		}),
 	}),
 });
 
@@ -221,9 +264,12 @@ export const {
 	useLazyGetAllAdminProductsQuery,
 	useLazyGetAllAdminProductsSkuQuery,
 	useLazyGetAdminProductQuery,
+	useLazyGetAdminProductSkuQuery,
 	useGetAdminProductFiltersQuery,
 	useCreateProductMutation,
 	useCreateProductSkuMutation,
 	useUpdateProductMutation,
+	useUpdateProductSkuMutation,
 	useRemoveProductMutation,
+	useRemoveProductSkuMutation
 } = adminProductApi;

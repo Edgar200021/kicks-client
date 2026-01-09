@@ -1,13 +1,13 @@
-import { EllipsisVertical, TrashIcon } from "lucide-react";
+import {EllipsisVertical, TrashIcon} from "lucide-react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/common/components/ui/dropdown-menu/dropdown-menu";
-import type { AdminProductSku } from "@/common/types/api";
-import { cn } from "@/common/utils/cn";
-import { useRemoveProduct } from "@/features/admin/product/hooks/use-remove-product.ts";
+import type {AdminProductSku} from "@/common/types/api";
+import {cn} from "@/common/utils/cn";
+import {useRemoveProductSku} from "@/features/admin/product/hooks/use-remove-product-sku.ts";
 
 interface Props {
 	className?: string;
@@ -15,10 +15,10 @@ interface Props {
 }
 
 export const AdminProductSkuActions = ({
-	className,
-	adminProductSku,
-}: Props) => {
-	const { removeProduct, isLoading } = useRemoveProduct(adminProductSku.id);
+																				 className,
+																				 adminProductSku,
+																			 }: Props) => {
+	const {removeProductSku, isLoading} = useRemoveProductSku(adminProductSku.id);
 
 	return (
 		<DropdownMenu modal={false}>
@@ -32,10 +32,13 @@ export const AdminProductSkuActions = ({
 			>
 				<DropdownMenuItem
 					disabled={isLoading}
-					onClick={removeProduct}
+					onClick={removeProductSku}
 					className="flex items-center gap-2 px-3 py-2 rounded-md text-sm hover:bg-slate-100 cursor-pointer"
 				>
-					<TrashIcon size={16} className={"text-red-600"} />
+					<TrashIcon
+						size={16}
+						className={"text-red-600"}
+					/>
 					<span>Remove</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
